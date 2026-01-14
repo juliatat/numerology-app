@@ -1,8 +1,50 @@
-* {
-  box-sizing: border-box;
+/* ----------------- themes ----------------- */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --header-footer-bg: #f1f1f1;
+}
+
+[data-theme='dark'] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --header-footer-bg: #1f1f1f;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: system-ui, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+header, footer {
+  background-color: var(--header-footer-bg);
+  padding: 1rem;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  text-align: center;
 }

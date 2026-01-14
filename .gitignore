@@ -1,5 +1,3 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
 # Compiled output
 /dist
 /tmp
@@ -26,7 +24,9 @@ yarn-error.log
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
+
+# Cursor AI rules (оставляем для команды)
+!.cursor/rules/
 
 # Miscellaneous
 /.angular/cache
