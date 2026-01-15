@@ -27,8 +27,8 @@ export class NumerologyPageComponent {
 
   lifePathNumber?: LifePathNumber;
   tableColumns: TableColumn[] = [
-    {key: 'positive', label: 'NUMEROLOGY.TABLE.POSITIVE'},
-    {key: 'negative', label: 'NUMEROLOGY.TABLE.NEGATIVE'},
+    {key: 'positive', label: '+'},
+    {key: 'negative', label: '-'},
   ];
 
   //for test

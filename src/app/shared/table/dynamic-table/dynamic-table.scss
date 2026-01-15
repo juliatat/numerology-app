@@ -34,3 +34,36 @@
     color: #000000;
   }
 }
+
+.vertical-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #fff;
+
+  .vertical-row {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .vertical-cell {
+      padding: 8px 12px;
+      border-right: 1px solid #e0e0e0;
+      text-align: left;
+      flex: 1;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .label-cell {
+      font-weight: 600;
+      flex: 0 0 150px;
+    }
+  }
+}

@@ -29,10 +29,11 @@ export interface TableColumn {
   templateUrl: './dynamic-table.html',
   styleUrls: ['./dynamic-table.scss']
 })
-export class DynamicTableComponent<T> implements OnInit {
+export class DynamicTableComponent<T extends Record<string, any>> implements OnInit {
   @Input() columns: TableColumn[] = [];
   @Input() data: T[] = [];
   @Input() pageSize = 5;
+  @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   displayedColumns: string[] = [];
   dataSource!: MatTableDataSource<T>;
