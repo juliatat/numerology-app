@@ -9,6 +9,7 @@
   "NUMEROLOGY": {
     "TITLE": "Numerology Calculator",
     "NAME": "Full Name",
+    "NAME_PLACEHOLDER": "Enter your full name",
     "BIRTHDATE": "Birth Date",
     "CALCULATE": "Calculate",
     "RESULT": "Life Path Number",

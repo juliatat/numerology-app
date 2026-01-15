@@ -2,7 +2,7 @@
 <form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form">
   <label>
     {{ 'NUMEROLOGY.NAME' | translate }}
-    <input formControlName="name" placeholder="Enter your full name"/>
+    <input formControlName="name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER.' | translate }}"/>
   </label>
 
   <label>
