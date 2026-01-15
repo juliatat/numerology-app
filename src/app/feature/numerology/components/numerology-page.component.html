@@ -2,7 +2,7 @@
 <form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form">
   <label>
     {{ 'NUMEROLOGY.NAME' | translate }}
-    <input formControlName="name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER.' | translate }}"/>
+    <input formControlName="name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER' | translate }}"/>
   </label>
 
   <label>
@@ -17,3 +17,10 @@
   <h3>{{ 'NUMEROLOGY.RESULT' | translate }}: {{ lifePathNumber }}</h3>
   <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lifePathNumber | translate }}</p>
 </div>
+
+<p>Karma</p>
+<app-dynamic-table
+  [columns]="tableColumns"
+  [data]="tableData"
+  [pageSize]="5">
+</app-dynamic-table>
