@@ -1,19 +1,23 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {LifePathNumber} from '../../../core/models/numerology-types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NumerologyCalculateService {
 
-  constructor() {}
+  constructor(private translate: TranslateService) {
+  }
 
-  calcLifePathNumber(date: Date): number {
-    const sumDigits = (n: number) =>
-      n.toString().split('').reduce((a, b) => a + +b, 0);
+  calculateLifePathNumber(date: string): LifePathNumber {
+    const digits = date.replace(/\D/g, '');
+    let sum = digits.split('').reduce((acc, d) => acc + Number(d), 0);
 
-    let sum = sumDigits(date.getFullYear()) + sumDigits(date.getMonth() + 1) + sumDigits(date.getDate());
-    while (sum > 9) sum = sumDigits(sum);
+    while (sum > 9) {
+      sum = sum.toString().split('').reduce((acc, d) => acc + Number(d), 0);
+    }
 
-    return sum;
+    return sum as LifePathNumber;
   }
 }

@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
-import { HeaderComponent } from './shared/ui/header/header.component';
-import { FooterComponent } from './shared/ui/footer/footer.component';
-import { RouterOutlet } from '@angular/router';
+import {Component, signal} from '@angular/core';
+import {HeaderComponent} from './shared/ui/header/header.component';
+import {FooterComponent} from './shared/ui/footer/footer.component';
+import {RouterOutlet} from '@angular/router';
+import {I18nService} from './core/i18n/i18n.service';
 
 @Component({
   selector: 'app-root',
@@ -18,4 +19,8 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('numerology-app');
+
+  constructor(i18nService: I18nService) {
+    i18nService.init();
+  }
 }

@@ -1,0 +1,27 @@
+{
+  "FOOTER": {
+    "THEME": "Toggle Theme",
+    "LANGUAGE": {
+      "EN": "en",
+      "RU": "ru"
+    }
+  },
+  "NUMEROLOGY": {
+    "TITLE": "Numerology Calculator",
+    "NAME": "Full Name",
+    "BIRTHDATE": "Birth Date",
+    "CALCULATE": "Calculate",
+    "RESULT": "Life Path Number",
+    "LIFE_PATH_DESCRIPTIONS": {
+      "1": "Leader, independent, ambitious",
+      "2": "Diplomatic, sensitive, cooperative",
+      "3": "Creative, expressive, social",
+      "4": "Practical, disciplined, reliable",
+      "5": "Adventurous, energetic, flexible",
+      "6": "Responsible, nurturing, harmonious",
+      "7": "Analytical, spiritual, introspective",
+      "8": "Ambitious, goal-oriented",
+      "9": "Compassionate, humanitarian"
+    }
+  }
+}
