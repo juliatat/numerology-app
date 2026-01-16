@@ -4,7 +4,7 @@ import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/
 import {NumerologyCalculateService} from '../services/numerology-calculation.service';
 import {TranslateModule} from '@ngx-translate/core';
 import {LifePathNumber} from '../../../core/models/numerology-types';
-import {DynamicTableComponent, TableColumn} from '../../../shared/table/dynamic-table/dynamic-table';
+import {KarmaBlockComponent} from './karma-block/karma-block.component';
 
 @Component({
   selector: 'app-numerology-page',
@@ -13,7 +13,7 @@ import {DynamicTableComponent, TableColumn} from '../../../shared/table/dynamic-
     CommonModule,
     ReactiveFormsModule,
     TranslateModule,
-    DynamicTableComponent
+    KarmaBlockComponent
   ],
   templateUrl: 'numerology-page.component.html',
   styleUrl: 'numerology-page.component.scss'
@@ -25,25 +25,22 @@ export class NumerologyPageComponent {
     birthDate: new FormControl('', Validators.required),
   });
 
+  isSubmitted = false;
   lifePathNumber?: LifePathNumber;
-  tableColumns: TableColumn[] = [
-    {key: 'positive', label: '+'},
-    {key: 'negative', label: '-'},
-  ];
-
-  //for test
-  tableData: any[] = [{positive: 1, negative: 11}, {positive: 1, negative: 11}, {
-    positive: 5,
-    negative: 55
-  }, {positive: 2, negative: 21}, {positive: 3, negative: 44}, {positive: 1, negative: 11}];
 
   constructor(private numerologyService: NumerologyCalculateService) {
+  }
+
+  get birthDate() {
+    const value = this.form.value.birthDate;
+    return value ? new Date(value) : null;
   }
 
   calculate(): void {
     const birthDate = this.form.get('birthDate')?.value;
     if (!birthDate) return;
 
+    this.isSubmitted = true;
     const lifePath = this.numerologyService.calculateLifePathNumber(birthDate);
     this.lifePathNumber = lifePath;
   }

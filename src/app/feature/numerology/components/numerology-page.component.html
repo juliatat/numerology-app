@@ -13,15 +13,13 @@
   <button type="submit" [disabled]="form.invalid">{{ 'NUMEROLOGY.CALCULATE' | translate }}</button>
 </form>
 
-<div *ngIf="lifePathNumber" class="result-card">
-  <h3>{{ 'NUMEROLOGY.RESULT' | translate }}: {{ lifePathNumber }}</h3>
-  <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lifePathNumber | translate }}</p>
-</div>
+@if(lifePathNumber){
+  <div class="result-card">
+    <h3>{{ 'NUMEROLOGY.RESULT' | translate }}: {{ lifePathNumber }}</h3>
+    <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lifePathNumber | translate }}</p>
+  </div>
+}
 
-<p>Karma</p>
-<app-dynamic-table
-  [columns]="tableColumns"
-  [data]="tableData"
-  [pageSize]="5"
-  [orientation]="'vertical'">
-</app-dynamic-table>
+@if(birthDate && isSubmitted){
+  <app-karma-block [birthDate]="birthDate"></app-karma-block>
+}

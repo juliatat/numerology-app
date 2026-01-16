@@ -1,0 +1,10 @@
+<div class="karma-block mat-elevation-z2">
+  <h3>{{ 'KARMA_TITLE' | translate }}</h3>
+
+  <app-dynamic-table
+    [columns]="tableColumns"
+    [data]="karmaTableData"
+    [pageSize]="5"
+    [orientation]="'vertical'">
+  </app-dynamic-table>
+</div>
