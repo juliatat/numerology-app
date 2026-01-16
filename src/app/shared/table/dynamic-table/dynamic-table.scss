@@ -38,9 +38,11 @@
 .vertical-table {
   display: flex;
   flex-direction: column;
+  width: 100%;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   background-color: #fff;
+  overflow: hidden;
 
   .vertical-row {
     display: flex;
@@ -51,10 +53,11 @@
     }
 
     .vertical-cell {
-      padding: 8px 12px;
-      border-right: 1px solid #e0e0e0;
-      text-align: left;
       flex: 1;
+      padding: 8px 12px;
+      text-align: center;
+      border-right: 1px solid #e0e0e0;
+      word-break: break-word;
 
       &:last-child {
         border-right: none;
@@ -62,8 +65,8 @@
     }
 
     .label-cell {
-      font-weight: 600;
       flex: 0 0 150px;
+      font-weight: 600;
     }
   }
 }

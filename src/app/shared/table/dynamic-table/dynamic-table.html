@@ -17,11 +17,11 @@
   <!-- Vertical view -->
   @if(orientation === 'vertical'){
     <div class="vertical-table">
-      <div class="vertical-row" *ngFor="let col of columns">
+      <div class="vertical-row" *ngFor="let col of columns; trackBy: trackByCol">
         <div class="vertical-cell label-cell">
           {{ col.label | translate }}
         </div>
-        <div class="vertical-cell" *ngFor="let row of data">
+        <div class="vertical-cell" *ngFor="let row of data; trackBy: trackByRow">
           {{ row[col.key] }}
         </div>
       </div>

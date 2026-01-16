@@ -58,5 +58,12 @@ export class DynamicTableComponent<T extends Record<string, any>> implements OnI
     });
   }
 
+  trackByCol(index: number, col: any): any {
+    return col.key ?? index;
+  }
+
+  trackByRow(index: number, row: any): any {
+    return row.id ?? index;
+  }
 
 }
