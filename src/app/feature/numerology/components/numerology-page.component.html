@@ -13,15 +13,24 @@
   <button type="submit" [disabled]="form.invalid">{{ 'NUMEROLOGY.CALCULATE' | translate }}</button>
 </form>
 
-@if(lifePathNumber){
+@if (lifePathNumber) {
   <div class="result-card">
     <h3>{{ 'NUMEROLOGY.RESULT' | translate }}: {{ lifePathNumber }}</h3>
     <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lifePathNumber | translate }}</p>
   </div>
 }
 
-@if(birthDate && isSubmitted){
+@if (birthDate && isSubmitted) {
   <app-karma-block [birthDate]="birthDate"></app-karma-block>
 
-  <app-yearly-prognostics [birthDate]="birthDate"></app-yearly-prognostics>
+  <div class="prognostics-container">
+    <app-yearly-prognostics [birthDate]="birthDate" (yearChange)="selectedYear = $event"></app-yearly-prognostics>
+
+    @if (selectedYear) {
+      <app-monthly-prognostics
+        [birthDate]="birthDate"
+        [selectedYear]="selectedYear">
+      </app-monthly-prognostics>
+    }
+  </div>
 }

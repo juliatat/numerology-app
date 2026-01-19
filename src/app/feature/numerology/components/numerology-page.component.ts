@@ -5,7 +5,8 @@ import {NumerologyCalculateService} from '../services/numerology-calculation.ser
 import {TranslateModule} from '@ngx-translate/core';
 import {LifePathNumber} from '../../../core/models/numerology-types';
 import {KarmaBlockComponent} from './karma-block/karma-block.component';
-import {YearlyPrognosticsComponent} from './yearly-prognostics/ yearly-prognostics.component';
+import {YearlyPrognosticsComponent} from './yearly-prognostics/yearly-prognostics.component';
+import {MonthlyPrognosticsComponent} from './monthly-prognostics/monthly-prognostics.component';
 
 @Component({
   selector: 'app-numerology-page',
@@ -15,20 +16,22 @@ import {YearlyPrognosticsComponent} from './yearly-prognostics/ yearly-prognosti
     ReactiveFormsModule,
     TranslateModule,
     KarmaBlockComponent,
-    YearlyPrognosticsComponent
+    YearlyPrognosticsComponent,
+    MonthlyPrognosticsComponent
   ],
   templateUrl: 'numerology-page.component.html',
   styleUrl: 'numerology-page.component.scss'
 })
 
 export class NumerologyPageComponent {
+  isSubmitted = false;
+  lifePathNumber?: LifePathNumber;
+  selectedYear: number = new Date().getFullYear();
+
   form = new FormGroup({
     name: new FormControl('', Validators.required),
     birthDate: new FormControl('', Validators.required),
   });
-
-  isSubmitted = false;
-  lifePathNumber?: LifePathNumber;
 
   constructor(private numerologyService: NumerologyCalculateService) {
   }

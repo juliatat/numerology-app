@@ -1,0 +1,27 @@
+.monthly-prognostics {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 30px auto;
+
+  .month-select {
+    width: 200px;
+  }
+
+  .month-list {
+    max-width: 300px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+
+    mat-list-item.selected {
+      background-color: rgba(63, 81, 181, 0.08);
+      font-weight: 600;
+    }
+
+    .secondary {
+      font-size: 0.85em;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}

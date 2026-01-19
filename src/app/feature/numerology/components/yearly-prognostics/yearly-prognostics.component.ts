@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -49,10 +49,11 @@ export const YEAR_FORMAT = {
     {provide: MAT_DATE_FORMATS, useValue: YEAR_FORMAT},
   ],
   templateUrl: './yearly-prognostics.component.html',
-  styleUrls: ['./ yearly-prognostics.component.scss'],
+  styleUrls: ['./yearly-prognostics.component.scss'],
 })
 export class YearlyPrognosticsComponent implements OnChanges {
   @Input() birthDate!: Date;
+  @Output() yearChange = new EventEmitter<number>();
 
   selectedYear = new Date().getFullYear();
   yearPickerDate = new Date(this.selectedYear, 0, 1);
@@ -78,6 +79,7 @@ export class YearlyPrognosticsComponent implements OnChanges {
     this.form.get('year')?.setValue(this.yearPickerDate);
     picker.close();
     this.update();
+    this.yearChange.emit(this.selectedYear);
   }
 
   update(): void {

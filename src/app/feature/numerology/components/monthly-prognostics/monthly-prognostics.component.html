@@ -1,0 +1,23 @@
+<div class="monthly-prognostics">
+
+  <mat-form-field appearance="outline" class="month-select">
+    <mat-label>{{ 'PROGNOSTICS.SELECT_MONTH' | translate }}</mat-label>
+    <mat-select [(value)]="selectedMonth" (selectionChange)="selectMonth($event.value)">
+      @for (month of months; track trackByMonth(month)) {
+        <mat-option [value]="month.month">
+          {{ month.labelKey | translate }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-list class="month-list">
+    @for (month of months; track trackByMonth(month)) {
+      <mat-list-item [class.selected]="month.month === selectedMonth">
+      <span matListItemTitle>{{ month.labelKey | translate }}:
+        <span class="secondary"> {{ month.arcane }}</span>
+      </span>
+      </mat-list-item>
+    }
+  </mat-list>
+</div>
