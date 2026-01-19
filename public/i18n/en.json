@@ -29,8 +29,10 @@
   "PROGNOSTICS": {
     "ARCANE": "Arcane",
     "SELECT_YEAR": "Select year",
-    "SELECT_MONTH": "Select month"
+    "SELECT_MONTH": "Select month",
+    "CALENDAR_TITLE": "Daily Prognostics"
   },
+
   "MONTHS": {
     "1": "January",
     "2": "February",

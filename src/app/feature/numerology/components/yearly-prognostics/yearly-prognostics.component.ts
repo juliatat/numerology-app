@@ -13,7 +13,7 @@ import {
 } from '@angular/material/core';
 import {MatListModule} from '@angular/material/list';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {YearArcane, YearlyPrognosticsService} from '../../services/ yearly-prognostics.service';
+import {YearArcane, YearlyPrognosticsService} from '../../services/yearly-prognostics.service';
 import {TranslateModule} from '@ngx-translate/core';
 
 class CustomDateAdapter extends NativeDateAdapter {

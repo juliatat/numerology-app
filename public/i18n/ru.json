@@ -29,7 +29,8 @@
   "PROGNOSTICS": {
     "ARCANE": "Аркан",
     "SELECT_YEAR": "Выбери год",
-    "SELECT_MONTH": "Выбери месяц"
+    "SELECT_MONTH": "Выбери месяц",
+    "CALENDAR_TITLE": "Прогностика по дням"
   },
   "MONTHS": {
     "1": "Январь",

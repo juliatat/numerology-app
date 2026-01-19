@@ -1,0 +1,18 @@
+<div class="calendar-container">
+  <mat-card>
+    <mat-card-title>
+      {{ 'PROGNOSTICS.CALENDAR_TITLE' | translate }} — {{ month }}/{{ year }}
+    </mat-card-title>
+
+    <mat-grid-list cols="7" rowHeight="50px" gutterSize="4px">
+      @for (day of days; track trackByDay(day)) {
+        <mat-grid-tile [class.today]="day.day === todayDay()">
+          <div class="day-number">{{ day.day }}</div>
+          <div class="day-arcane">
+            {{ 'PROGNOSTICS.ARCANE' | translate }}: {{ day.arcane }}
+          </div>
+        </mat-grid-tile>
+      }
+    </mat-grid-list>
+  </mat-card>
+</div>

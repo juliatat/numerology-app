@@ -1,0 +1,35 @@
+.calendar-container {
+  margin: 30px auto;
+
+  mat-card {
+    padding: 16px;
+
+    .mat-grid-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+
+      &.today {
+        background-color: rgba(63, 81, 181, 0.1);
+        font-weight: 600;
+      }
+
+      .day-number {
+        font-size: 0.9em;
+      }
+
+      .day-arcane {
+        font-size: 0.75em;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+
+    ::ng-deep .mat-grid-tile-content {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

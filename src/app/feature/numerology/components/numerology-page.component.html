@@ -29,8 +29,18 @@
     @if (selectedYear) {
       <app-monthly-prognostics
         [birthDate]="birthDate"
-        [selectedYear]="selectedYear">
+        [selectedYear]="selectedYear"
+        (monthlyChange)="selectedMonth = $event">
       </app-monthly-prognostics>
+
+      @if (selectedMonth) {
+        <app-calendar-prognostics
+          [birthDate]="birthDate"
+          [year]="selectedYear"
+          [month]="selectedMonth">
+        </app-calendar-prognostics>
+      }
     }
   </div>
+
 }

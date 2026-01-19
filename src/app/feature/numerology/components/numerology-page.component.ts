@@ -7,6 +7,7 @@ import {LifePathNumber} from '../../../core/models/numerology-types';
 import {KarmaBlockComponent} from './karma-block/karma-block.component';
 import {YearlyPrognosticsComponent} from './yearly-prognostics/yearly-prognostics.component';
 import {MonthlyPrognosticsComponent} from './monthly-prognostics/monthly-prognostics.component';
+import {CalendarPrognosticsComponent} from './calendar-prognostics/calendar-prognostics.component';
 
 @Component({
   selector: 'app-numerology-page',
@@ -17,7 +18,8 @@ import {MonthlyPrognosticsComponent} from './monthly-prognostics/monthly-prognos
     TranslateModule,
     KarmaBlockComponent,
     YearlyPrognosticsComponent,
-    MonthlyPrognosticsComponent
+    MonthlyPrognosticsComponent,
+    CalendarPrognosticsComponent
   ],
   templateUrl: 'numerology-page.component.html',
   styleUrl: 'numerology-page.component.scss'
@@ -27,6 +29,7 @@ export class NumerologyPageComponent {
   isSubmitted = false;
   lifePathNumber?: LifePathNumber;
   selectedYear: number = new Date().getFullYear();
+  selectedMonth: number = new Date().getMonth();
 
   form = new FormGroup({
     name: new FormControl('', Validators.required),
