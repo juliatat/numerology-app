@@ -1,0 +1,33 @@
+<div class="yearly-prognostics">
+
+  <mat-form-field [formGroup]="form" appearance="outline">
+    <mat-label>{{ 'PROGNOSTICS.SELECT_YEAR' | translate }}</mat-label>
+
+    <input
+      matInput
+      [matDatepicker]="picker"
+      formControlName="year"
+      readonly
+    />
+
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+
+    <mat-datepicker
+      #picker
+      startView="multi-year"
+      panelClass="jp-year-picker"
+      (yearSelected)="onYearSelected($event, picker)"
+    >
+    </mat-datepicker>
+  </mat-form-field>
+
+  <mat-list>
+    @for (item of years; track item.year) {
+      <mat-list-item [class.selected]="item.year === selectedYear">
+        <span matListItemTitle>{{ item.year }}</span>
+        <span matListItemLine>{{ 'PROGNOSTICS.ARCANE' | translate }} : {{ item.positive }} / {{ item.negative }}</span>
+      </mat-list-item>
+    }
+  </mat-list>
+
+</div>

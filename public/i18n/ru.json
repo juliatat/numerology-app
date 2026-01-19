@@ -25,5 +25,9 @@
       "9": "Сострадательный, гуманист"
     }
   },
-  "KARMA_TITLE": "Карма"
+  "KARMA_TITLE": "Карма",
+  "PROGNOSTICS": {
+    "ARCANE": "Аркан",
+    "SELECT_YEAR": "Выбери год"
+  }
 }

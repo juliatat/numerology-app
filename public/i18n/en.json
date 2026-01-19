@@ -25,5 +25,9 @@
       "9": "Compassionate, humanitarian"
     }
   },
-  "KARMA_TITLE": "Karma"
+  "KARMA_TITLE": "Karma",
+  "PROGNOSTICS": {
+    "ARCANE": "Arcane",
+    "SELECT_YEAR": "Select year"
+  }
 }

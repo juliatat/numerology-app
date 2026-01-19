@@ -5,6 +5,7 @@ import {NumerologyCalculateService} from '../services/numerology-calculation.ser
 import {TranslateModule} from '@ngx-translate/core';
 import {LifePathNumber} from '../../../core/models/numerology-types';
 import {KarmaBlockComponent} from './karma-block/karma-block.component';
+import {YearlyPrognosticsComponent} from './yearly-prognostics/ yearly-prognostics.component';
 
 @Component({
   selector: 'app-numerology-page',
@@ -13,7 +14,8 @@ import {KarmaBlockComponent} from './karma-block/karma-block.component';
     CommonModule,
     ReactiveFormsModule,
     TranslateModule,
-    KarmaBlockComponent
+    KarmaBlockComponent,
+    YearlyPrognosticsComponent
   ],
   templateUrl: 'numerology-page.component.html',
   styleUrl: 'numerology-page.component.scss'
