@@ -8,6 +8,14 @@ import {KarmaBlockComponent} from './karma-block/karma-block.component';
 import {YearlyPrognosticsComponent} from './yearly-prognostics/yearly-prognostics.component';
 import {MonthlyPrognosticsComponent} from './monthly-prognostics/monthly-prognostics.component';
 import {CalendarPrognosticsComponent} from './calendar-prognostics/calendar-prognostics.component';
+import {NameNumberService} from '../services/name-number.service';
+import {KarmicDebtResult} from '../../../core/models/karmic-debt-typrs';
+import {KarmicDebtService} from '../services/karmic-debt.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-numerology-page',
@@ -16,27 +24,37 @@ import {CalendarPrognosticsComponent} from './calendar-prognostics/calendar-prog
     CommonModule,
     ReactiveFormsModule,
     TranslateModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
     KarmaBlockComponent,
     YearlyPrognosticsComponent,
     MonthlyPrognosticsComponent,
     CalendarPrognosticsComponent
   ],
   templateUrl: 'numerology-page.component.html',
-  styleUrl: 'numerology-page.component.scss'
+  styleUrl: 'numerology-page.component.scss',
 })
 
 export class NumerologyPageComponent {
   isSubmitted = false;
   lifePathNumber?: LifePathNumber;
+  nameNumber: number | null = null;
+  karmicDebts: KarmicDebtResult[] = [];
   selectedYear: number = new Date().getFullYear();
   selectedMonth: number = new Date().getMonth();
 
   form = new FormGroup({
     name: new FormControl('', Validators.required),
-    birthDate: new FormControl('', Validators.required),
+    birthDate: new FormControl<Date | null>(null, Validators.required),
   });
 
-  constructor(private numerologyService: NumerologyCalculateService) {
+  constructor(private numerologyService: NumerologyCalculateService,
+              private nameNumberService: NameNumberService,
+              private karmicDebtService: KarmicDebtService) {
   }
 
   get birthDate() {
@@ -48,9 +66,16 @@ export class NumerologyPageComponent {
     const birthDate = this.form.get('birthDate')?.value;
     if (!birthDate) return;
 
+    const name = this.form.get('name')?.value;
+    if (!name) return;
+
     this.isSubmitted = true;
-    const lifePath = this.numerologyService.calculateLifePathNumber(birthDate);
-    this.lifePathNumber = lifePath;
+
+    this.lifePathNumber = this.numerologyService.calculateLifePathNumber(birthDate);
+
+    this.nameNumber = this.nameNumberService.calculate(name);
+
+    this.karmicDebts = this.karmicDebtService.calculate(this.lifePathNumber, birthDate.getDate(), this.nameNumber);
   }
 
 }

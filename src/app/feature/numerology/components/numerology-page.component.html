@@ -1,46 +1,89 @@
 <h2>{{ 'NUMEROLOGY.TITLE' | translate }}</h2>
-<form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form">
-  <label>
-    {{ 'NUMEROLOGY.NAME' | translate }}
-    <input formControlName="name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER' | translate }}"/>
-  </label>
 
-  <label>
-    {{ 'NUMEROLOGY.BIRTHDATE' | translate }}
-    <input type="date" formControlName="birthDate"/>
-  </label>
+<div class="numerology-container">
+  <form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form" novalidate>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'NUMEROLOGY.NAME' | translate }}</mat-label>
+      <input matInput formControlName="name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER' | translate }}">
 
-  <button type="submit" [disabled]="form.invalid">{{ 'NUMEROLOGY.CALCULATE' | translate }}</button>
-</form>
-
-@if (lifePathNumber) {
-  <div class="result-card">
-    <h3>{{ 'NUMEROLOGY.RESULT' | translate }}: {{ lifePathNumber }}</h3>
-    <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lifePathNumber | translate }}</p>
-  </div>
-}
-
-@if (birthDate && isSubmitted) {
-  <app-karma-block [birthDate]="birthDate"></app-karma-block>
-
-  <div class="prognostics-container">
-    <app-yearly-prognostics [birthDate]="birthDate" (yearChange)="selectedYear = $event"></app-yearly-prognostics>
-
-    @if (selectedYear) {
-      <app-monthly-prognostics
-        [birthDate]="birthDate"
-        [selectedYear]="selectedYear"
-        (monthlyChange)="selectedMonth = $event">
-      </app-monthly-prognostics>
-
-      @if (selectedMonth) {
-        <app-calendar-prognostics
-          [birthDate]="birthDate"
-          [year]="selectedYear"
-          [month]="selectedMonth">
-        </app-calendar-prognostics>
+      @if (form.controls.name.invalid && form.controls.name.touched) {
+        <mat-error>{{ 'NUMEROLOGY.NAME_REQUIRED' | translate }}</mat-error>
       }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'NUMEROLOGY.BIRTHDATE' | translate }}</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="DD/MM/YYYY">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+
+      @if (form.controls.birthDate.invalid && form.controls.birthDate.touched) {
+        <mat-error>{{ 'NUMEROLOGY.BIRTHDATE_REQUIRED' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        {{ 'NUMEROLOGY.CALCULATE' | translate }}
+      </button>
+    </div>
+  </form>
+
+  <div class="numerology-calculation">
+    @if (lifePathNumber) {
+      <div class="result-card">
+        <h3>{{ 'NUMEROLOGY.LIFE_PATH' | translate }}: {{ lifePathNumber }}</h3>
+        <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lifePathNumber | translate }}</p>
+      </div>
+
+      <div class="result-card">
+        <h3>{{ 'NUMEROLOGY.LIFE_LESSON' | translate }}: {{ lifePathNumber }}</h3>
+        <p>{{ 'NUMEROLOGY.LIFE_LESSON_DESCRIPTIONS.' + lifePathNumber | translate }}</p>
+      </div>
+    }
+
+    @if (nameNumber) {
+      <div class="result-card">
+        <h3>{{ 'NUMEROLOGY.NAME_NUMBER' | translate }}: {{ nameNumber }}</h3>
+        <p> {{ 'NUMEROLOGY.NAME_NUMBER_DESCRIPTIONS.' + nameNumber | translate }}</p>
+      </div>
+    }
+
+    @if (karmicDebts.length > 0) {
+      <div class="result-card">
+        <h3>{{ 'NUMEROLOGY.KARMIC_DEBTS' | translate }}</h3>
+        <p>
+          @for (debt of karmicDebts; track debt.value) {
+            <span>
+          {{ debt.value }} -
+              {{ 'NUMEROLOGY.KARMIC_DEBTS_DESCRIPTION.' + debt.value | translate }}
+      </span>
+          }
+        </p>
+      </div>
     }
   </div>
+</div>
+  @if (birthDate && isSubmitted) {
+    <app-karma-block [birthDate]="birthDate"></app-karma-block>
 
-}
+    <div class="prognostics-container">
+      <app-yearly-prognostics [birthDate]="birthDate" (yearChange)="selectedYear = $event"></app-yearly-prognostics>
+
+      @if (selectedYear) {
+        <app-monthly-prognostics
+          [birthDate]="birthDate"
+          [selectedYear]="selectedYear"
+          (monthlyChange)="selectedMonth = $event">
+        </app-monthly-prognostics>
+
+        @if (selectedMonth) {
+          <app-calendar-prognostics
+            [birthDate]="birthDate"
+            [year]="selectedYear"
+            [month]="selectedMonth">
+          </app-calendar-prognostics>
+        }
+      }
+    </div>
+  }

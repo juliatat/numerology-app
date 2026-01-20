@@ -1,3 +1,17 @@
+.numerology-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3rem;
+  }
+}
+
 .numerology-form {
   display: flex;
   flex-direction: column;
@@ -6,27 +20,30 @@
   max-width: 400px;
 }
 
-.numerology-form input, .numerology-form button {
-  padding: 0.5rem;
-  font-size: 1rem;
+.numerology-calculation {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
   width: 100%;
-}
 
-.numerology-form button {
-  cursor: pointer;
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 900px;
+  }
 }
 
 .result-card {
-  margin-top: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
   background-color: var(--header-footer-bg);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
+  box-sizing: border-box;
 }
 
 .prognostics-container {
   display: flex;
   flex-direction: row;
   gap: 16px;
+  justify-content: center;
 }

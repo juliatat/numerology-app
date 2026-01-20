@@ -1,23 +1,24 @@
 import {Injectable} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 import {LifePathNumber} from '../../../core/models/numerology-types';
+import {ArcaneNumberService} from './arcane-number.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NumerologyCalculateService {
 
-  constructor(private translate: TranslateService) {
+  constructor(private arcaneService: ArcaneNumberService) {
   }
 
-  calculateLifePathNumber(date: string): LifePathNumber {
-    const digits = date.replace(/\D/g, '');
-    let sum = digits.split('').reduce((acc, d) => acc + Number(d), 0);
+  calculateLifePathNumber(date: Date): LifePathNumber {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const sum =
+      this.arcaneService.sumDigits(day) +
+      this.arcaneService.sumDigits(month) +
+      this.arcaneService.sumDigits(year);
 
-    while (sum > 9) {
-      sum = sum.toString().split('').reduce((acc, d) => acc + Number(d), 0);
-    }
-
-    return sum as LifePathNumber;
+    return this.arcaneService.toArcane(sum) as LifePathNumber;
   }
 }
