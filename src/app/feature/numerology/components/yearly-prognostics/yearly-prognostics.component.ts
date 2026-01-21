@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnChanges, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -54,6 +54,7 @@ export const YEAR_FORMAT = {
 export class YearlyPrognosticsComponent implements OnChanges {
   @Input() birthDate!: Date;
   @Output() yearChange = new EventEmitter<number>();
+  private readonly yearlyPrognosticsService = inject(YearlyPrognosticsService);
 
   selectedYear = new Date().getFullYear();
   yearPickerDate = new Date(this.selectedYear, 0, 1);
@@ -63,9 +64,6 @@ export class YearlyPrognosticsComponent implements OnChanges {
   form = new FormGroup({
     year: new FormControl<Date | null>(this.yearPickerDate),
   });
-
-  constructor(private service: YearlyPrognosticsService) {
-  }
 
   ngOnChanges(): void {
     if (this.birthDate) {
@@ -83,6 +81,6 @@ export class YearlyPrognosticsComponent implements OnChanges {
   }
 
   update(): void {
-    this.years = this.service.calculateYears(this.birthDate, this.selectedYear);
+    this.years = this.yearlyPrognosticsService.calculateYears(this.birthDate, this.selectedYear);
   }
 }

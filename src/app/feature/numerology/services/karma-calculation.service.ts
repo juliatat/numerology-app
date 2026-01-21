@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {ArcaneNumberService} from './arcane-number.service';
 
 export interface KarmaResult {
@@ -14,8 +14,7 @@ export interface KarmaResult {
 })
 export class KarmaCalculationService {
 
-  constructor(private arcane: ArcaneNumberService) {
-  }
+  private readonly arcane = inject(ArcaneNumberService);
 
 
   calculateNegative(birthDate: Date): KarmaResult {

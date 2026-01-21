@@ -1,10 +1,10 @@
 import {ArcaneNumberService} from './arcane-number.service';
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class NameNumberService {
 
-  constructor(private arcane: ArcaneNumberService) {}
+  private readonly arcane = inject(ArcaneNumberService);
 
   calculate(name: string): number {
     if (!name) return 0;

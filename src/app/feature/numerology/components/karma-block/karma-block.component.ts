@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {Component, inject, Input, OnChanges} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import {DynamicTableComponent, TableColumn} from '../../../../shared/table/dynamic-table/dynamic-table';
@@ -12,6 +12,7 @@ import {KarmaCalculationService} from '../../services/karma-calculation.service'
 })
 export class KarmaBlockComponent implements OnChanges {
   @Input() birthDate!: Date;
+  private readonly karmaService = inject(KarmaCalculationService);
 
   tableColumns: TableColumn[] = [
     { key: 'positive', label: '+' },
@@ -19,8 +20,6 @@ export class KarmaBlockComponent implements OnChanges {
   ];
 
   karmaTableData: Array<{ negative: number; positive: number }> = [];
-
-  constructor(private karmaService: KarmaCalculationService) {}
 
   ngOnChanges(): void {
     if (!this.birthDate) {

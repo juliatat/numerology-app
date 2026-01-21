@@ -1,0 +1,16 @@
+.app-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+}
+
+.footer-copy {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.spacer {
+  flex: 1;
+}

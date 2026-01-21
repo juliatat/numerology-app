@@ -14,6 +14,11 @@ export interface TableColumn {
   sortable?: boolean;
 }
 
+export interface TableRowBase {
+  id: string | number;
+}
+
+
 @Component({
   selector: 'app-dynamic-table',
   standalone: true,
@@ -29,7 +34,7 @@ export interface TableColumn {
   templateUrl: './dynamic-table.html',
   styleUrls: ['./dynamic-table.scss']
 })
-export class DynamicTableComponent<T extends Record<string, any>> implements OnInit {
+export class DynamicTableComponent<T extends TableRowBase & Record<string, unknown>> implements OnInit {
   @Input() columns: TableColumn[] = [];
   @Input() data: T[] = [];
   @Input() pageSize = 5;
@@ -46,24 +51,7 @@ export class DynamicTableComponent<T extends Record<string, any>> implements OnI
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator; // ✅ привязка пагинатора
-  }
-
-  sortData(event: any) {
-    const sortKey = event.active;
-    const direction = event.direction;
-    this.dataSource.data = [...this.dataSource.data].sort((a: any, b: any) => {
-      if (!direction) return 0;
-      return (a[sortKey] > b[sortKey] ? 1 : -1) * (direction === 'asc' ? 1 : -1);
-    });
-  }
-
-  trackByCol(index: number, col: any): any {
-    return col.key ?? index;
-  }
-
-  trackByRow(index: number, row: any): any {
-    return row.id ?? index;
+    this.dataSource.paginator = this.paginator;
   }
 
 }

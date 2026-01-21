@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {ArcaneNumberService} from './arcane-number.service';
 
 export interface MonthArcane {
@@ -9,8 +9,7 @@ export interface MonthArcane {
 
 @Injectable({providedIn: 'root'})
 export class MonthlyPrognosticsService {
-  constructor(private arcaneNumberService: ArcaneNumberService) {
-  }
+  private readonly arcaneNumberService = inject(ArcaneNumberService);
 
   calculateMonths(birthDate: Date, year: number): MonthArcane[] {
     const months: MonthArcane[] = [];

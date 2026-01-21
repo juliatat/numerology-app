@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {LifePathNumber} from '../../../core/models/numerology-types';
 import {ArcaneNumberService} from './arcane-number.service';
 
@@ -7,8 +7,7 @@ import {ArcaneNumberService} from './arcane-number.service';
 })
 export class NumerologyCalculateService {
 
-  constructor(private arcaneService: ArcaneNumberService) {
-  }
+  private readonly arcaneService = inject(ArcaneNumberService);
 
   calculateLifePathNumber(date: Date): LifePathNumber {
     const day = date.getDate();

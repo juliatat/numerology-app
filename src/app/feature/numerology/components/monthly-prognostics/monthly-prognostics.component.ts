@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnChanges, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MonthArcane, MonthlyPrognosticsService} from '../../services/monthly-prognostics.service';
@@ -25,12 +25,10 @@ export class MonthlyPrognosticsComponent implements OnChanges {
   @Input() birthDate!: Date;
   @Input() selectedYear!: number;
   @Output() monthlyChange = new EventEmitter<number>();
+  private readonly monthlyPrognosticsService = inject(MonthlyPrognosticsService);
 
   months: MonthArcane[] = [];
-  selectedMonth: number = new Date().getMonth() + 1; // текущий месяц по умолчанию
-
-  constructor(private monthlyPrognosticsService: MonthlyPrognosticsService) {
-  }
+  selectedMonth: number = new Date().getMonth() + 1;
 
   ngOnChanges(): void {
     if (this.birthDate && this.selectedYear) {

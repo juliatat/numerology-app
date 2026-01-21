@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 import {NumerologyCalculateService} from '../services/numerology-calculation.service';
@@ -52,10 +52,9 @@ export class NumerologyPageComponent {
     birthDate: new FormControl<Date | null>(null, Validators.required),
   });
 
-  constructor(private numerologyService: NumerologyCalculateService,
-              private nameNumberService: NameNumberService,
-              private karmicDebtService: KarmicDebtService) {
-  }
+  private readonly numerologyService = inject(NumerologyCalculateService);
+  private readonly nameNumberService = inject(NameNumberService);
+  private readonly karmicDebtService = inject(KarmicDebtService);
 
   get birthDate() {
     const value = this.form.value.birthDate;

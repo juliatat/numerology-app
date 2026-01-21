@@ -3,11 +3,13 @@
   <!-- Horizontal view -->
   @if(orientation === 'horizontal'){
     <table mat-table [dataSource]="dataSource" matSort>
-      <ng-container *ngFor="let col of columns" [matColumnDef]="col.key">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ col.label | translate }}</th>
-        <td mat-cell *matCellDef="let row">{{ row[col.key] }}</td>
-      </ng-container>
 
+      @for (col of columns; track col.key) {
+        <ng-container [matColumnDef]="col.key">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ col.label | translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row[col.key] }}</td>
+        </ng-container>
+      }
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
@@ -17,14 +19,20 @@
   <!-- Vertical view -->
   @if(orientation === 'vertical'){
     <div class="vertical-table">
-      <div class="vertical-row" *ngFor="let col of columns; trackBy: trackByCol">
-        <div class="vertical-cell label-cell">
-          {{ col.label | translate }}
+
+      @for (col of columns; track col.key ?? $index) {
+        <div class="vertical-row">
+          <div class="vertical-cell label-cell">
+            {{ col.label | translate }}
+          </div>
+
+          @for (row of data; track row.id ?? $index) {
+            <div class="vertical-cell">
+              {{ row[col.key] }}
+            </div>
+          }
         </div>
-        <div class="vertical-cell" *ngFor="let row of data; trackBy: trackByRow">
-          {{ row[col.key] }}
-        </div>
-      </div>
+      }
     </div>
   }
 

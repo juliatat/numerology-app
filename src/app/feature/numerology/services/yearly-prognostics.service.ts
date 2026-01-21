@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {ArcaneNumberService} from './arcane-number.service';
 
 export interface YearArcane {
@@ -9,8 +9,7 @@ export interface YearArcane {
 
 @Injectable({providedIn: 'root'})
 export class YearlyPrognosticsService {
-  constructor(private arcane: ArcaneNumberService) {
-  }
+  private readonly arcane = inject(ArcaneNumberService);
 
   calculateYears(birthDate: Date, selectedYear: number): YearArcane[] {
     const day = birthDate.getDate();
