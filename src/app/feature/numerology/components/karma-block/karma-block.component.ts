@@ -1,45 +1,38 @@
-import {Component, inject, Input, OnChanges} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, computed, inject, input} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {TranslateModule} from '@ngx-translate/core';
 import {DynamicTableComponent, TableColumn} from '../../../../shared/table/dynamic-table/dynamic-table';
 import {KarmaCalculationService} from '../../services/karma-calculation.service';
 
 @Component({
   selector: 'app-karma-block',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, DynamicTableComponent, TranslateModule],
   templateUrl: './karma-block.component.html'
 })
-export class KarmaBlockComponent implements OnChanges {
-  @Input() birthDate!: Date;
+export class KarmaBlockComponent {
+  readonly birthDate = input<Date | null>(null);
   private readonly karmaService = inject(KarmaCalculationService);
 
-  tableColumns: TableColumn[] = [
+  readonly tableColumns: TableColumn[] = [
     { key: 'positive', label: '+' },
     { key: 'negative', label: '-' },
   ];
 
-  karmaTableData: Array<{ negative: number; positive: number }> = [];
+  readonly karmaTableData = computed((): Array<{ id: string; negative: number; positive: number }> => {
+    const birthDate = this.birthDate();
+    if (!birthDate) return [];
 
-  ngOnChanges(): void {
-    if (!this.birthDate) {
-      this.karmaTableData = [];
-      return;
-    }
-    this.calculateKarma();
-  }
-
-  private calculateKarma(): void {
-    if (!this.birthDate) return;
-    const negative = this.karmaService.calculateNegative(this.birthDate);
-    const positive = this.karmaService.calculatePositive(this.birthDate);
+    const negative = this.karmaService.calculateNegative(birthDate);
+    const positive = this.karmaService.calculatePositive(birthDate);
 
     const keys: Array<keyof typeof negative> = ['k1', 'k2', 'k3', 'k4', 'k5'];
 
-    this.karmaTableData = keys.map(key => ({
+    return keys.map(key => ({
+      id: key,
       negative: negative[key],
       positive: positive[key],
     }));
-  }
+  });
 
 }

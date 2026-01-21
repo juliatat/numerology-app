@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnChanges, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -33,7 +33,7 @@ export const YEAR_FORMAT = {
 
 @Component({
   selector: 'app-yearly-prognostics',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -51,36 +51,38 @@ export const YEAR_FORMAT = {
   templateUrl: './yearly-prognostics.component.html',
   styleUrls: ['./yearly-prognostics.component.scss'],
 })
-export class YearlyPrognosticsComponent implements OnChanges {
-  @Input() birthDate!: Date;
-  @Output() yearChange = new EventEmitter<number>();
+export class YearlyPrognosticsComponent {
+  readonly birthDate = input<Date | null>(null);
+  readonly yearChange = output<number>();
   private readonly yearlyPrognosticsService = inject(YearlyPrognosticsService);
 
-  selectedYear = new Date().getFullYear();
-  yearPickerDate = new Date(this.selectedYear, 0, 1);
+  readonly selectedYear = signal(new Date().getFullYear());
+  readonly yearPickerDate = computed(() => new Date(this.selectedYear(), 0, 1));
 
-  years: YearArcane[] = [];
-
-  form = new FormGroup({
-    year: new FormControl<Date | null>(this.yearPickerDate),
+  readonly years = computed<YearArcane[]>(() => {
+    const birthDate = this.birthDate();
+    if (!birthDate) return [];
+    return this.yearlyPrognosticsService.calculateYears(birthDate, this.selectedYear());
   });
 
-  ngOnChanges(): void {
-    if (this.birthDate) {
-      this.update();
-    }
+  readonly form = new FormGroup({
+    year: new FormControl<Date | null>(this.yearPickerDate()),
+  });
+
+  constructor() {
+    effect(() => {
+      const next = this.yearPickerDate();
+      const current = this.form.controls.year.value;
+      if (!current || current.getFullYear() !== next.getFullYear()) {
+        this.form.controls.year.setValue(next, {emitEvent: false});
+      }
+    });
   }
 
   onYearSelected(date: Date, picker: MatDatepicker<Date>): void {
-    this.selectedYear = date.getFullYear();
-    this.yearPickerDate = new Date(this.selectedYear, 0, 1);
-    this.form.get('year')?.setValue(this.yearPickerDate);
+    const year = date.getFullYear();
+    this.selectedYear.set(year);
     picker.close();
-    this.update();
-    this.yearChange.emit(this.selectedYear);
-  }
-
-  update(): void {
-    this.years = this.yearlyPrognosticsService.calculateYears(this.birthDate, this.selectedYear);
+    this.yearChange.emit(year);
   }
 }

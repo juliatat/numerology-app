@@ -22,8 +22,8 @@
   </mat-form-field>
 
   <mat-list>
-    @for (item of years; track item.year) {
-      <mat-list-item [class.selected]="item.year === selectedYear">
+    @for (item of years(); track item.year) {
+      <mat-list-item [class.selected]="item.year === selectedYear()">
         <span matListItemTitle>{{ item.year }}</span>
         <span matListItemLine>{{ 'PROGNOSTICS.ARCANE' | translate }} : {{ item.positive }} / {{ item.negative }}</span>
       </mat-list-item>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, effect, inject, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {I18nService} from '../../../core/i18n/i18n.service';
 import {TranslatePipe} from '@ngx-translate/core';
@@ -9,6 +9,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-footer',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     TranslatePipe,
@@ -53,21 +54,24 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   `,
   styleUrl: 'footer.component.scss'
 })
-export class FooterComponent implements OnInit {
-  constructor(public i18n: I18nService) {
-  }
+export class FooterComponent {
+  readonly i18n = inject(I18nService);
 
-  ngOnInit() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.body.setAttribute('data-theme', savedTheme);
+  private readonly theme = signal<'light' | 'dark'>('light');
+
+  constructor() {
+    const savedTheme = localStorage.getItem('theme');
+    this.theme.set(savedTheme === 'dark' ? 'dark' : 'light');
+
+    effect(() => {
+      const theme = this.theme();
+      document.body.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    });
   }
 
   toggleTheme() {
-    const body = document.body;
-    const isDark = body.getAttribute('data-theme') === 'dark';
-    const newTheme = isDark ? 'light' : 'dark';
-    body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+    this.theme.update(t => (t === 'dark' ? 'light' : 'dark'));
   }
 
   setLang(lang: 'en' | 'ru') {

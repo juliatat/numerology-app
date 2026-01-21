@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, effect, input, viewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
@@ -21,7 +21,7 @@ export interface TableRowBase {
 
 @Component({
   selector: 'app-dynamic-table',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     MatTableModule,
@@ -34,24 +34,28 @@ export interface TableRowBase {
   templateUrl: './dynamic-table.html',
   styleUrls: ['./dynamic-table.scss']
 })
-export class DynamicTableComponent<T extends TableRowBase & Record<string, unknown>> implements OnInit {
-  @Input() columns: TableColumn[] = [];
-  @Input() data: T[] = [];
-  @Input() pageSize = 5;
-  @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
+export class DynamicTableComponent<T extends TableRowBase & Record<string, unknown>> {
+  readonly columns = input<TableColumn[]>([]);
+  readonly data = input<T[]>([]);
+  readonly pageSize = input(5);
+  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 
-  displayedColumns: string[] = [];
-  dataSource!: MatTableDataSource<T>;
+  readonly displayedColumns = computed(() => this.columns().map(c => c.key));
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  readonly dataSource = new MatTableDataSource<T>([]);
 
-  ngOnInit(): void {
-    this.displayedColumns = this.columns.map(c => c.key);
-    this.dataSource = new MatTableDataSource(this.data);
+  private readonly paginator = viewChild(MatPaginator);
+
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.data();
+    });
+
+    effect(() => {
+      const paginator = this.paginator();
+      if (paginator) {
+        this.dataSource.paginator = paginator;
+      }
+    });
   }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
-
 }

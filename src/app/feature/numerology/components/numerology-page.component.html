@@ -30,30 +30,30 @@
   </form>
 
   <div class="numerology-calculation">
-    @if (lifePathNumber) {
+    @if (lifePathNumber(); as lp) {
       <div class="result-card">
-        <h3>{{ 'NUMEROLOGY.LIFE_PATH' | translate }}: {{ lifePathNumber }}</h3>
-        <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lifePathNumber | translate }}</p>
+        <h3>{{ 'NUMEROLOGY.LIFE_PATH' | translate }}: {{ lp }}</h3>
+        <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lp | translate }}</p>
       </div>
 
       <div class="result-card">
-        <h3>{{ 'NUMEROLOGY.LIFE_LESSON' | translate }}: {{ lifePathNumber }}</h3>
-        <p>{{ 'NUMEROLOGY.LIFE_LESSON_DESCRIPTIONS.' + lifePathNumber | translate }}</p>
-      </div>
-    }
-
-    @if (nameNumber) {
-      <div class="result-card">
-        <h3>{{ 'NUMEROLOGY.NAME_NUMBER' | translate }}: {{ nameNumber }}</h3>
-        <p> {{ 'NUMEROLOGY.NAME_NUMBER_DESCRIPTIONS.' + nameNumber | translate }}</p>
+        <h3>{{ 'NUMEROLOGY.LIFE_LESSON' | translate }}: {{ lp }}</h3>
+        <p>{{ 'NUMEROLOGY.LIFE_LESSON_DESCRIPTIONS.' + lp | translate }}</p>
       </div>
     }
 
-    @if (karmicDebts.length > 0) {
+    @if (nameNumber(); as nn) {
+      <div class="result-card">
+        <h3>{{ 'NUMEROLOGY.NAME_NUMBER' | translate }}: {{ nn }}</h3>
+        <p> {{ 'NUMEROLOGY.NAME_NUMBER_DESCRIPTIONS.' + nn | translate }}</p>
+      </div>
+    }
+
+    @if (karmicDebts().length > 0) {
       <div class="result-card">
         <h3>{{ 'NUMEROLOGY.KARMIC_DEBTS' | translate }}</h3>
         <p>
-          @for (debt of karmicDebts; track debt.value) {
+          @for (debt of karmicDebts(); track debt.value) {
             <span>
           {{ debt.value }} -
               {{ 'NUMEROLOGY.KARMIC_DEBTS_DESCRIPTION.' + debt.value | translate }}
@@ -64,24 +64,27 @@
     }
   </div>
 </div>
-  @if (birthDate && isSubmitted) {
-    <app-karma-block [birthDate]="birthDate"></app-karma-block>
+  @if (birthDate() && isSubmitted()) {
+    <app-karma-block [birthDate]="birthDate()!"></app-karma-block>
 
     <div class="prognostics-container">
-      <app-yearly-prognostics [birthDate]="birthDate" (yearChange)="selectedYear = $event"></app-yearly-prognostics>
+      <app-yearly-prognostics
+        [birthDate]="birthDate()!"
+        (yearChange)="selectedYear.set($event)">
+      </app-yearly-prognostics>
 
-      @if (selectedYear) {
+      @if (selectedYear()) {
         <app-monthly-prognostics
-          [birthDate]="birthDate"
-          [selectedYear]="selectedYear"
-          (monthlyChange)="selectedMonth = $event">
+          [birthDate]="birthDate()!"
+          [selectedYear]="selectedYear()"
+          (monthlyChange)="selectedMonth.set($event)">
         </app-monthly-prognostics>
 
-        @if (selectedMonth) {
+        @if (selectedMonth()) {
           <app-calendar-prognostics
-            [birthDate]="birthDate"
-            [year]="selectedYear"
-            [month]="selectedMonth">
+            [birthDate]="birthDate()!"
+            [year]="selectedYear()"
+            [month]="selectedMonth()">
           </app-calendar-prognostics>
         }
       }

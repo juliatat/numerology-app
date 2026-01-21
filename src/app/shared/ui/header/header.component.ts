@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
-  standalone: true,
   selector: 'app-header',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header>
       <h1>Iam Your Numerologist</h1>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnChanges, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MonthArcane, MonthlyPrognosticsService} from '../../services/monthly-prognostics.service';
@@ -10,7 +10,7 @@ import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-monthly-prognostics',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -21,28 +21,34 @@ import {TranslateModule} from '@ngx-translate/core';
   templateUrl: './monthly-prognostics.component.html',
   styleUrls: ['./monthly-prognostics.component.scss'],
 })
-export class MonthlyPrognosticsComponent implements OnChanges {
-  @Input() birthDate!: Date;
-  @Input() selectedYear!: number;
-  @Output() monthlyChange = new EventEmitter<number>();
+export class MonthlyPrognosticsComponent {
+  readonly birthDate = input<Date | null>(null);
+  readonly selectedYear = input<number | null>(null);
+  readonly monthlyChange = output<number>();
   private readonly monthlyPrognosticsService = inject(MonthlyPrognosticsService);
 
-  months: MonthArcane[] = [];
-  selectedMonth: number = new Date().getMonth() + 1;
+  readonly selectedMonth = signal<number>(new Date().getMonth() + 1);
 
-  ngOnChanges(): void {
-    if (this.birthDate && this.selectedYear) {
-      this.updateMonths();
-    }
-  }
+  readonly months = computed<MonthArcane[]>(() => {
+    const birthDate = this.birthDate();
+    const year = this.selectedYear();
+    if (!birthDate || !year) return [];
+    return this.monthlyPrognosticsService.calculateMonths(birthDate, year);
+  });
 
-  updateMonths(): void {
-    this.months = this.monthlyPrognosticsService.calculateMonths(this.birthDate, this.selectedYear);
-    this.monthlyChange.emit(this.selectedMonth);
+  constructor() {
+    effect(() => {
+      const birthDate = this.birthDate();
+      const year = this.selectedYear();
+      if (!birthDate || !year) return;
+
+      this.months();
+      this.monthlyChange.emit(this.selectedMonth());
+    });
   }
 
   selectMonth(month: number): void {
-    this.selectedMonth = month;
+    this.selectedMonth.set(month);
   }
 
   trackByMonth(month: MonthArcane): number {
