@@ -13,7 +13,6 @@ import {NameNumberService} from '../services/name-number.service';
 import {KarmicDebtResult} from '../../../core/models/karmic-debt-typrs';
 import {KarmicDebtService} from '../services/karmic-debt.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
@@ -28,7 +27,6 @@ import {MatButtonModule} from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatButtonModule,
     KarmaBlockComponent,
     YearlyPrognosticsComponent,

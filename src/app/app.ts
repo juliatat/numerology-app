@@ -3,6 +3,7 @@ import {HeaderComponent} from './shared/ui/header/header.component';
 import {FooterComponent} from './shared/ui/footer/footer.component';
 import {RouterOutlet} from '@angular/router';
 import {I18nService} from './core/i18n/i18n.service';
+import {DateLocaleSyncService} from './core/date-locale/date-locale-sync.service';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +19,7 @@ import {I18nService} from './core/i18n/i18n.service';
   `,
 })
 export class App {
-  protected readonly title = signal('numerology-app');
 
-  // Ensures the service is instantiated at app startup.
-  // (The service self-initializes; `init()` remains for backward compatibility.)
   private readonly _i18n = inject(I18nService);
+  private readonly _dateLocaleSync = inject(DateLocaleSyncService);
 }
