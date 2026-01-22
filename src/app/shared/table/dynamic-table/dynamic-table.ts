@@ -3,8 +3,6 @@ import {CommonModule} from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
 import {MatTableDataSource} from '@angular/material/table';
 import {TranslateModule} from '@ngx-translate/core';
 
@@ -18,7 +16,6 @@ export interface TableRowBase {
   id: string | number;
 }
 
-
 @Component({
   selector: 'app-dynamic-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,8 +24,6 @@ export interface TableRowBase {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatButtonModule,
-    MatIconModule,
     TranslateModule
   ],
   templateUrl: './dynamic-table.html',

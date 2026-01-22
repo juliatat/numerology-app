@@ -1,22 +1,20 @@
 import {ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
 import {MonthArcane, MonthlyPrognosticsService} from '../../services/monthly-prognostics.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatListModule} from '@angular/material/list';
-import {MatInputModule} from '@angular/material/input';
 import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-monthly-prognostics',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatButtonModule,
+  imports: [
+    CommonModule,
     MatFormFieldModule,
     MatSelectModule,
     MatListModule,
-    MatInputModule,
-    TranslateModule
+    TranslateModule,
   ],
   templateUrl: './monthly-prognostics.component.html',
   styleUrls: ['./monthly-prognostics.component.scss'],
@@ -49,6 +47,7 @@ export class MonthlyPrognosticsComponent {
 
   selectMonth(month: number): void {
     this.selectedMonth.set(month);
+    this.monthlyChange.emit(month);
   }
 
   trackByMonth(month: MonthArcane): number {

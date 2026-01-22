@@ -27,14 +27,6 @@ export class I18nService {
     });
   }
 
-  /**
-   * Backward-compatible initializer (safe to call, no-op for effect wiring).
-   * Kept so existing callers don't break.
-   */
-  init(): void {
-    // The service initializes itself in the constructor.
-  }
-
   setLang(lang: AppLang): void {
     this.lang.set(lang);
   }
