@@ -1,35 +1,85 @@
 .calendar-container {
-  margin: 30px auto;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 
-  mat-card {
-    padding: 16px;
-
-    .mat-grid-tile {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-
-      &.today {
-        background-color: rgba(63, 81, 181, 0.1);
-        font-weight: 600;
-      }
-
-      .day-number {
-        font-size: 0.9em;
-      }
-
-      .day-arcane {
-        font-size: 0.75em;
-        color: rgba(0, 0, 0, 0.6);
-      }
-    }
-
-    ::ng-deep .mat-grid-tile-content {
-      display: flex;
-      flex-direction: column;
-    }
+  @media (min-width: 600px) {
+    margin: 1.5rem auto;
   }
+}
+
+.calendar-container mat-card {
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  @media (min-width: 600px) {
+    padding: 16px;
+  }
+}
+
+.calendar-container mat-card-title {
+  font-size: clamp(0.9375rem, 3vw, 1.25rem);
+  padding: 0 0.5rem 0.5rem;
+  margin: 0;
+}
+
+.calendar-grid-wrapper {
+  min-width: 0;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.calendar-container ::ng-deep .mat-mdc-grid-list,
+.calendar-container ::ng-deep .mat-grid-list,
+.calendar-container ::ng-deep [mat-grid-list] {
+  width: 105%;
+  max-width: 105%;
+}
+
+.calendar-container ::ng-deep .mat-grid-tile,
+.calendar-container ::ng-deep .mat-mdc-grid-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  min-width: 0;
+
+  &.today {
+    background-color: rgba(63, 81, 181, 0.1);
+    font-weight: 600;
+  }
+
+  .day-number {
+    font-size: clamp(0.75rem, 2.5vw, 0.9em);
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+
+  .day-arcane {
+    font-size: clamp(0.625rem, 2vw, 0.65em);
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.2;
+    text-align: center;
+    word-break: break-word;
+    max-width: 100%;
+  }
+}
+
+.calendar-container ::ng-deep .mat-grid-tile-content,
+.calendar-container ::ng-deep .mat-mdc-grid-tile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  width: 100%;
+  min-width: 0;
 }

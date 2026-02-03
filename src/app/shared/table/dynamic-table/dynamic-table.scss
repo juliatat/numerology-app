@@ -1,23 +1,38 @@
 .dynamic-table-container {
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: 8px;
-  padding: 8px;
+  padding: 0.5rem;
   background-color: #ffffff;
   color: #000000;
   box-sizing: border-box;
 
+  @media (min-width: 600px) {
+    padding: 8px;
+  }
+
   table {
     width: 100%;
-    min-width: 400px;
+    min-width: 280px;
     border-collapse: collapse;
+    font-size: clamp(0.8125rem, 2.5vw, 0.9375rem);
+
+    @media (min-width: 600px) {
+      min-width: 400px;
+    }
 
     th.mat-header-cell,
     td.mat-cell {
       border: 1px solid #e0e0e0;
-      padding: 12px 8px;
+      padding: 8px 6px;
       color: #000000;
+
+      @media (min-width: 600px) {
+        padding: 12px 8px;
+      }
     }
 
     th.mat-header-cell {
@@ -34,6 +49,7 @@
   mat-paginator {
     margin-top: 8px;
     color: #000000;
+    min-height: 48px;
   }
 }
 
@@ -42,6 +58,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   background-color: #fff;
@@ -51,8 +68,8 @@
   .vertical-row {
     display: flex;
     flex-wrap: wrap;
-    overflow-x: auto;
     max-width: 100%;
+    min-width: 0;
     border-bottom: 1px solid #e0e0e0;
     box-sizing: border-box;
 
@@ -63,10 +80,16 @@
     .vertical-cell {
       flex: 1 1 0;
       min-width: 0;
-      padding: 8px 12px;
+      padding: 0.5rem 0.5rem;
       text-align: center;
       border-right: 1px solid #e0e0e0;
       word-break: break-word;
+      overflow-wrap: break-word;
+      font-size: clamp(0.8125rem, 2.5vw, 0.9375rem);
+
+      @media (min-width: 600px) {
+        padding: 8px 12px;
+      }
 
       &:last-child {
         border-right: none;
@@ -74,8 +97,16 @@
     }
 
     .label-cell {
-      flex: 0 0 150px;
+      flex: 0 0 80px;
       font-weight: 600;
+
+      @media (min-width: 600px) {
+        flex: 0 0 120px;
+      }
+
+      @media (min-width: 768px) {
+        flex: 0 0 150px;
+      }
     }
   }
 }

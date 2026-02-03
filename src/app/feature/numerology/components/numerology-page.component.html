@@ -1,33 +1,34 @@
 <h2>{{ 'NUMEROLOGY.TITLE' | translate }}</h2>
 
-<div class="numerology-container">
-  <form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form" novalidate>
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>{{ 'NUMEROLOGY.NAME' | translate }}</mat-label>
-      <input matInput formControlName="name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER' | translate }}">
+<div class="numerology-container" [class.has-results]="lifePathNumber() !== null">
+  <div class="form-wrapper">
+    <form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form" novalidate>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>{{ 'NUMEROLOGY.NAME' | translate }}</mat-label>
+        <input matInput formControlName="name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER' | translate }}">
 
-      @if (form.controls.name.invalid && form.controls.name.touched) {
-        <mat-error>{{ 'NUMEROLOGY.NAME_REQUIRED' | translate }}</mat-error>
-      }
-    </mat-form-field>
+        @if (form.controls.name.invalid && form.controls.name.touched) {
+          <mat-error>{{ 'NUMEROLOGY.NAME_REQUIRED' | translate }}</mat-error>
+        }
+      </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>{{ 'NUMEROLOGY.BIRTHDATE' | translate }}</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="DD/MM/YYYY">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>{{ 'NUMEROLOGY.BIRTHDATE' | translate }}</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="DD/MM/YYYY">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+        @if (form.controls.birthDate.invalid && form.controls.birthDate.touched) {
+          <mat-error>{{ 'NUMEROLOGY.BIRTHDATE_REQUIRED' | translate }}</mat-error>
+        }
+      </mat-form-field>
 
-      @if (form.controls.birthDate.invalid && form.controls.birthDate.touched) {
-        <mat-error>{{ 'NUMEROLOGY.BIRTHDATE_REQUIRED' | translate }}</mat-error>
-      }
-    </mat-form-field>
-
-    <div class="form-actions">
-      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
-        {{ 'NUMEROLOGY.CALCULATE' | translate }}
-      </button>
-    </div>
-  </form>
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+          {{ 'NUMEROLOGY.CALCULATE' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
 
   <div class="numerology-calculation">
     @if (lifePathNumber(); as lp) {
@@ -45,7 +46,7 @@
     @if (nameNumber(); as nn) {
       <div class="result-card">
         <h3>{{ 'NUMEROLOGY.NAME_NUMBER' | translate }}: {{ nn }}</h3>
-        <p> {{ 'NUMEROLOGY.NAME_NUMBER_DESCRIPTIONS.' + nn | translate }}</p>
+        <p>{{ 'NUMEROLOGY.NAME_NUMBER_DESCRIPTIONS.' + nn | translate }}</p>
       </div>
     }
 
@@ -53,40 +54,34 @@
       <div class="result-card">
         <h3>{{ 'NUMEROLOGY.KARMIC_DEBTS' | translate }}</h3>
         <p>
-          @for (debt of karmicDebts(); track debt.value) {
-            <span>
-          {{ debt.value }} -
-              {{ 'NUMEROLOGY.KARMIC_DEBTS_DESCRIPTION.' + debt.value | translate }}
-      </span>
+          @for (debt of karmicDebts(); track $index) {
+            <span>{{ debt.value }} - {{ 'NUMEROLOGY.KARMIC_DEBTS_DESCRIPTION.' + debt.value | translate }} </span>
           }
         </p>
       </div>
     }
   </div>
 </div>
-  @if (birthDate() && isSubmitted()) {
-    <app-karma-block [birthDate]="birthDate()!"></app-karma-block>
-
-    <div class="prognostics-container">
-      <app-yearly-prognostics
+@if (birthDate() && isSubmitted()) {
+  <app-karma-block [birthDate]="birthDate()!"></app-karma-block>
+  <div class="prognostics-container">
+    <app-yearly-prognostics
+      [birthDate]="birthDate()!"
+      (yearChange)="selectedYear.set($event)">
+    </app-yearly-prognostics>
+    @if (selectedYear()) {
+      <app-monthly-prognostics
         [birthDate]="birthDate()!"
-        (yearChange)="selectedYear.set($event)">
-      </app-yearly-prognostics>
-
-      @if (selectedYear()) {
-        <app-monthly-prognostics
+        [selectedYear]="selectedYear()"
+        (monthlyChange)="selectedMonth.set($event)">
+      </app-monthly-prognostics>
+      @if (selectedMonth()) {
+        <app-calendar-prognostics
           [birthDate]="birthDate()!"
-          [selectedYear]="selectedYear()"
-          (monthlyChange)="selectedMonth.set($event)">
-        </app-monthly-prognostics>
-
-        @if (selectedMonth()) {
-          <app-calendar-prognostics
-            [birthDate]="birthDate()!"
-            [year]="selectedYear()"
-            [month]="selectedMonth()">
-          </app-calendar-prognostics>
-        }
+          [year]="selectedYear()"
+          [month]="selectedMonth()">
+        </app-calendar-prognostics>
       }
-    </div>
-  }
+    }
+  </div>
+}

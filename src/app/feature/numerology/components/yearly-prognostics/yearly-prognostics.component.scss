@@ -1,9 +1,24 @@
 .yearly-prognostics {
   display: flex;
   flex-direction: column;
-  margin: 30px auto;
-  gap: 16px;
-  max-width: 320px;
+  margin: 1rem auto;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  @media (min-width: 600px) {
+    margin: 1.5rem auto;
+    gap: 16px;
+    max-width: 320px;
+  }
+}
+
+.yearly-prognostics mat-form-field {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .year-picker {
@@ -11,9 +26,17 @@
 }
 
 mat-list {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
   overflow: hidden;
+  box-sizing: border-box;
+
+  mat-list-item {
+    min-height: 48px;
+  }
 
   mat-list-item.selected {
     background-color: rgba(63, 81, 181, 0.08);

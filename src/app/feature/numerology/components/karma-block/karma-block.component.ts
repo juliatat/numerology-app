@@ -8,7 +8,8 @@ import {KarmaCalculationService} from '../../services/karma-calculation.service'
   selector: 'app-karma-block',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, DynamicTableComponent, TranslateModule],
-  templateUrl: './karma-block.component.html'
+  templateUrl: './karma-block.component.html',
+  styleUrl: './karma-block.component.scss',
 })
 export class KarmaBlockComponent {
   readonly birthDate = input<Date | null>(null);
