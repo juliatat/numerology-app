@@ -6,12 +6,12 @@
   -webkit-overflow-scrolling: touch;
   border-radius: 8px;
   padding: 0.5rem;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--table-bg);
+  color: var(--table-text);
   box-sizing: border-box;
 
   @media (min-width: 600px) {
-    padding: 8px;
+    padding: 0.5rem;
   }
 
   table {
@@ -26,29 +26,29 @@
 
     th.mat-header-cell,
     td.mat-cell {
-      border: 1px solid #e0e0e0;
-      padding: 8px 6px;
-      color: #000000;
+      border: 1px solid var(--table-border);
+      padding: 0.5rem 0.375rem;
+      color: var(--table-text);
 
       @media (min-width: 600px) {
-        padding: 12px 8px;
+        padding: 0.75rem 0.5rem;
       }
     }
 
     th.mat-header-cell {
-      background-color: #3f51b5;
-      color: #ffffff;
+      background-color: var(--table-header-bg);
+      color: var(--table-header-text);
       font-weight: 600;
     }
 
     .table-row:hover {
-      background-color: rgba(63, 81, 181, 0.1);
+      background-color: var(--list-selected-bg);
     }
   }
 
   mat-paginator {
-    margin-top: 8px;
-    color: #000000;
+    margin-top: 0.5rem;
+    color: var(--table-text);
     min-height: 48px;
   }
 }
@@ -59,18 +59,19 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--table-border);
   border-radius: 4px;
-  background-color: #fff;
+  background-color: var(--table-bg);
   overflow: hidden;
   box-sizing: border-box;
+  color: var(--table-text);
 
   .vertical-row {
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
     min-width: 0;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--table-border);
     box-sizing: border-box;
 
     &:last-child {
@@ -82,13 +83,14 @@
       min-width: 0;
       padding: 0.5rem 0.5rem;
       text-align: center;
-      border-right: 1px solid #e0e0e0;
+      border-right: 1px solid var(--table-border);
       word-break: break-word;
       overflow-wrap: break-word;
       font-size: clamp(0.8125rem, 2.5vw, 0.9375rem);
+      color: var(--table-text);
 
       @media (min-width: 600px) {
-        padding: 8px 12px;
+        padding: 0.5rem 0.75rem;
       }
 
       &:last-child {
@@ -99,6 +101,7 @@
     .label-cell {
       flex: 0 0 80px;
       font-weight: 600;
+      color: var(--table-text);
 
       @media (min-width: 600px) {
         flex: 0 0 120px;

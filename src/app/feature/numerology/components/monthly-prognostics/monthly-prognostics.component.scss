@@ -9,7 +9,7 @@
   box-sizing: border-box;
 
   @media (min-width: 600px) {
-    gap: 16px;
+    gap: 1rem;
     margin: 1.5rem auto;
   }
 }
@@ -28,7 +28,7 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   overflow: hidden;
   box-sizing: border-box;
@@ -42,12 +42,12 @@
   }
 
   mat-list-item.selected {
-    background-color: rgba(63, 81, 181, 0.08);
+    background-color: var(--list-selected-bg);
     font-weight: 600;
   }
 
   .secondary {
     font-size: 0.85em;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--text-muted);
   }
 }

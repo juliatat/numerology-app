@@ -18,7 +18,7 @@
   box-sizing: border-box;
 
   @media (min-width: 600px) {
-    padding: 16px;
+    padding: 1rem;
   }
 }
 
@@ -26,6 +26,7 @@
   font-size: clamp(0.9375rem, 3vw, 1.25rem);
   padding: 0 0.5rem 0.5rem;
   margin: 0;
+  color: var(--text-color);
 }
 
 .calendar-grid-wrapper {
@@ -48,12 +49,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   min-width: 0;
+  color: var(--text-color);
 
   &.today {
-    background-color: rgba(63, 81, 181, 0.1);
+    background-color: var(--tile-today-bg);
     font-weight: 600;
   }
 
@@ -65,7 +67,7 @@
 
   .day-arcane {
     font-size: clamp(0.625rem, 2vw, 0.65em);
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--text-muted);
     line-height: 1.2;
     text-align: center;
     word-break: break-word;
