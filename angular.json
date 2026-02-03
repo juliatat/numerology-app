@@ -23,6 +23,7 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "outputPath": "dist/numerology-app",
             "assets": [
               {
                 "glob": "**/*",
@@ -53,6 +54,23 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "github": {
+              "baseHref": "/numerology-app/",
+              "optimization": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"

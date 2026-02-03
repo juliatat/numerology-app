@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:github": "ng build --configuration=github",
+    "deploy": "npm run build:github && node -e \"require('fs').copyFileSync('dist/numerology-app/browser/index.html', 'dist/numerology-app/browser/404.html')\" && npx gh-pages -d dist/numerology-app/browser",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -23,6 +25,7 @@
   "private": true,
   "packageManager": "npm@11.6.2",
   "dependencies": {
+    "@angular/cdk": "^21.1.0",
     "@angular/common": "^21.0.0",
     "@angular/compiler": "^21.0.0",
     "@angular/core": "^21.0.0",
@@ -36,9 +39,12 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^21.1.2",
     "@angular/build": "^21.0.5",
     "@angular/cli": "^21.0.5",
     "@angular/compiler-cli": "^21.0.0",
+    "angular-cli-ghpages": "^3.0.2",
+    "gh-pages": "^6.2.0",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
