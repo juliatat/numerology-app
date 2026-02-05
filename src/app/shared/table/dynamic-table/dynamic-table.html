@@ -7,7 +7,7 @@
       @for (col of columns(); track col.key) {
         <ng-container [matColumnDef]="col.key">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ col.label | translate }}</th>
-          <td mat-cell *matCellDef="let row">{{ row[col.key] }}</td>
+          <td mat-cell *matCellDef="let row" (click)="cellClick.emit({row, columnKey: col.key, value: row[col.key]})">{{ row[col.key] }}</td>
         </ng-container>
       }
       <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
@@ -27,7 +27,7 @@
           </div>
 
           @for (row of data(); track row.id ?? $index) {
-            <div class="vertical-cell">
+            <div class="vertical-cell" (click)="cellClick.emit({row, columnKey: col.key, value: row[col.key]})">
               {{ row[col.key] }}
             </div>
           }

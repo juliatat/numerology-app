@@ -15,6 +15,7 @@ import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {YearArcane, YearlyPrognosticsService} from '../../services/yearly-prognostics.service';
 import {TranslateModule} from '@ngx-translate/core';
 import {I18nService} from '../../../../core/i18n/i18n.service';
+import {ArcanaModalService} from '../../services/arcana-modal.service';
 
 class CustomDateAdapter extends NativeDateAdapter {
   override format(date: Date): string {
@@ -52,10 +53,12 @@ export const YEAR_FORMAT = {
 })
 export class YearlyPrognosticsComponent {
   readonly birthDate = input<Date | null>(null);
+  readonly negativeArcana = input<number[]>([]);
   readonly yearChange = output<number>();
   private readonly yearlyPrognosticsService = inject(YearlyPrognosticsService);
   private readonly i18n = inject(I18nService);
   private readonly dateAdapter = inject(DateAdapter<Date>);
+  private readonly arcanaModal = inject(ArcanaModalService);
 
   readonly selectedYear = signal(new Date().getFullYear());
   readonly yearPickerDate = computed(() => new Date(this.selectedYear(), 0, 1));
@@ -91,5 +94,18 @@ export class YearlyPrognosticsComponent {
     this.selectedYear.set(year);
     picker.close();
     this.yearChange.emit(year);
+  }
+
+  onYearClick(item: YearArcane): void {
+    this.arcanaModal.openForPath(
+      [item.positive, item.negative],
+      this.negativeArcana(),
+      'year',
+      {
+        year: item.year,
+        positiveArcana: item.positive,
+        negativeArcana: item.negative,
+      }
+    );
   }
 }

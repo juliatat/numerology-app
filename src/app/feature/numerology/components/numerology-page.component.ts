@@ -12,6 +12,7 @@ import {CalendarPrognosticsComponent} from './calendar-prognostics/calendar-prog
 import {NameNumberService} from '../services/name-number.service';
 import {KarmicDebtResult} from '../../../core/models/karmic-debt-typrs';
 import {KarmicDebtService} from '../services/karmic-debt.service';
+import {KarmaCalculationService} from '../services/karma-calculation.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -43,10 +44,6 @@ export class NumerologyPageComponent {
     birthDate: new FormControl<Date | null>(null, Validators.required),
   });
 
-  private readonly nameValue = toSignal(this.form.controls.name.valueChanges, {
-    initialValue: this.form.controls.name.value,
-  });
-
   private readonly birthDateValue = toSignal(this.form.controls.birthDate.valueChanges, {
     initialValue: this.form.controls.birthDate.value,
   });
@@ -64,6 +61,15 @@ export class NumerologyPageComponent {
   private readonly numerologyService = inject(NumerologyCalculateService);
   private readonly nameNumberService = inject(NameNumberService);
   private readonly karmicDebtService = inject(KarmicDebtService);
+  private readonly karmaCalculationService = inject(KarmaCalculationService);
+
+  /** Arcana from the karma block's negative column. Compared with year/month/calendar for negative karma extra. */
+  readonly negativeArcana = computed(() => {
+    const birthDate = this.birthDate();
+    if (!birthDate) return [];
+    const neg = this.karmaCalculationService.calculateNegative(birthDate);
+    return [neg.k1, neg.k2, neg.k3, neg.k4, neg.k5];
+  });
 
   calculate(): void {
     const birthDate = this.form.controls.birthDate.value;

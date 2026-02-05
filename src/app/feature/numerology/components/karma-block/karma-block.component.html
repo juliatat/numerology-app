@@ -5,6 +5,7 @@
     [columns]="tableColumns"
     [data]="karmaTableData()"
     [pageSize]="5"
-    [orientation]="'vertical'">
+    [orientation]="'vertical'"
+    (cellClick)="onCellClick($event)">
   </app-dynamic-table>
 </div>

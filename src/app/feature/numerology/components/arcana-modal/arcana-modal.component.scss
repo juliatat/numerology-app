@@ -1,0 +1,139 @@
+.arcana-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  color: var(--text-color);
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.arcana-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.context-info {
+  padding: 0.625rem 0.875rem;
+  background: var(--list-selected-bg, rgba(0, 0, 0, 0.04));
+  border-radius: 6px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+
+  &--calendar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+.arcana-card {
+  padding: 1.25rem;
+  border: 1px solid var(--table-border, rgba(0, 0, 0, 0.12));
+  border-radius: 8px;
+  background: var(--table-bg, #fff);
+}
+
+.arcane-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.arcane-path {
+  font-weight: 600;
+  font-size: 1.0625rem;
+}
+
+.polarity-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  &.positive {
+    background: rgba(76, 175, 80, 0.2);
+    color: #2e7d32;
+  }
+
+  &.negative {
+    background: rgba(244, 67, 54, 0.2);
+    color: #c62828;
+  }
+}
+
+.arcane-description {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-color);
+
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.karmic-status-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(255, 152, 0, 0.1);
+  border-radius: 6px;
+  border-left: 4px solid #ff9800;
+
+  h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #e65100;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #bf360c;
+  }
+
+  .karmic-debt-notice {
+    margin-top: 0.375rem;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+  }
+}
+
+.karmic-debt-notice {
+  margin: 0.5rem 0 0;
+  padding: 0.5rem;
+  background: rgba(255, 152, 0, 0.15);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  color: #e65100;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  margin-top: 0.25rem;
+  border-top: 1px solid var(--table-border, rgba(0, 0, 0, 0.12));
+}

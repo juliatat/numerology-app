@@ -36,6 +36,7 @@ mat-list {
 
   mat-list-item {
     min-height: 48px;
+    cursor: pointer;
   }
 
   mat-list-item.selected {

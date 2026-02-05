@@ -23,7 +23,13 @@
 
   <mat-list>
     @for (item of years(); track item.year) {
-      <mat-list-item [class.selected]="item.year === selectedYear()">
+      <mat-list-item
+        [class.selected]="item.year === selectedYear()"
+        (click)="onYearClick(item)"
+        role="button"
+        tabindex="0"
+        (keydown.enter)="onYearClick(item)"
+        (keydown.space)="onYearClick(item); $event.preventDefault()">
         <span matListItemTitle>{{ item.year }}</span>
         <span matListItemLine>{{ 'PROGNOSTICS.ARCANE' | translate }} : {{ item.positive }} / {{ item.negative }}</span>
       </mat-list-item>

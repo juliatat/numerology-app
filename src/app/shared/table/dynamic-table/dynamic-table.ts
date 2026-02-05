@@ -1,9 +1,8 @@
-import {ChangeDetectionStrategy, Component, computed, effect, input, viewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, effect, input, output, viewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatTableModule} from '@angular/material/table';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
 import {TranslateModule} from '@ngx-translate/core';
 
 export interface TableColumn {
@@ -34,6 +33,8 @@ export class DynamicTableComponent<T extends TableRowBase & Record<string, unkno
   readonly data = input<T[]>([]);
   readonly pageSize = input(5);
   readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
+
+  readonly cellClick = output<{row: T; columnKey: string; value: unknown}>();
 
   readonly displayedColumns = computed(() => this.columns().map(c => c.key));
 

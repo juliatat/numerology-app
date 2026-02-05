@@ -13,10 +13,16 @@
 
   <mat-list class="month-list">
     @for (month of months(); track trackByMonth(month)) {
-      <mat-list-item [class.selected]="month.month === selectedMonth()">
-      <span matListItemTitle>{{ month.labelKey | translate }}:
-        <span class="secondary"> {{ month.arcane }}</span>
-      </span>
+      <mat-list-item
+        [class.selected]="month.month === selectedMonth()"
+        (click)="onMonthClick(month)"
+        role="button"
+        tabindex="0"
+        (keydown.enter)="onMonthClick(month)"
+        (keydown.space)="onMonthClick(month); $event.preventDefault()">
+        <span matListItemTitle>{{ month.labelKey | translate }}:
+          <span class="secondary"> {{ month.arcane }}</span>
+        </span>
       </mat-list-item>
     }
   </mat-list>

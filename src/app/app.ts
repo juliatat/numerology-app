@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {HeaderComponent} from './shared/ui/header/header.component';
 import {FooterComponent} from './shared/ui/footer/footer.component';
 import {RouterOutlet} from '@angular/router';
+import {MatDialogModule} from '@angular/material/dialog';
 import {I18nService} from './core/i18n/i18n.service';
 import {DateLocaleSyncService} from './core/date-locale/date-locale-sync.service';
 
@@ -9,7 +10,7 @@ import {DateLocaleSyncService} from './core/date-locale/date-locale-sync.service
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app.scss',
-  imports: [HeaderComponent, FooterComponent, RouterOutlet],
+  imports: [HeaderComponent, FooterComponent, RouterOutlet, MatDialogModule],
   template: `
     <app-header></app-header>
     <main>

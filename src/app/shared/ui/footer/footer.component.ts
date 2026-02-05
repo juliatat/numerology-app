@@ -28,7 +28,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
       <button
         mat-icon-button
         (click)="toggleTheme()"
-        aria-label="Toggle theme"
+        [attr.aria-label]="'FOOTER.THEME' | translate"
       >
         <mat-icon>brightness_6</mat-icon>
       </button>
@@ -37,7 +37,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
       <button
         mat-icon-button
         [matMenuTriggerFor]="langMenu"
-        aria-label="Change language"
+        [attr.aria-label]="'FOOTER.CHANGE_LANGUAGE' | translate"
       >
         <mat-icon>language</mat-icon>
       </button>

@@ -14,7 +14,7 @@
 
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>{{ 'NUMEROLOGY.BIRTHDATE' | translate }}</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="DD/MM/YYYY">
+        <input matInput [matDatepicker]="picker" formControlName="birthDate" [placeholder]="'NUMEROLOGY.BIRTHDATE_PLACEHOLDER' | translate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker startView="multi-year"></mat-datepicker>
         @if (form.controls.birthDate.invalid && form.controls.birthDate.touched) {
@@ -63,23 +63,26 @@
   </div>
 </div>
 @if (birthDate() && isSubmitted()) {
-  <app-karma-block [birthDate]="birthDate()!"></app-karma-block>
+  <app-karma-block [birthDate]="birthDate()!" [negativeArcana]="negativeArcana()"></app-karma-block>
   <div class="prognostics-container">
     <app-yearly-prognostics
       [birthDate]="birthDate()!"
+      [negativeArcana]="negativeArcana()"
       (yearChange)="selectedYear.set($event)">
     </app-yearly-prognostics>
     @if (selectedYear()) {
       <app-monthly-prognostics
         [birthDate]="birthDate()!"
         [selectedYear]="selectedYear()"
+        [negativeArcana]="negativeArcana()"
         (monthlyChange)="selectedMonth.set($event)">
       </app-monthly-prognostics>
       @if (selectedMonth()) {
         <app-calendar-prognostics
           [birthDate]="birthDate()!"
           [year]="selectedYear()"
-          [month]="selectedMonth()">
+          [month]="selectedMonth()"
+          [negativeArcana]="negativeArcana()">
         </app-calendar-prognostics>
       }
     }

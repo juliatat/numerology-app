@@ -1,0 +1,53 @@
+<div class="arcana-modal" role="dialog" [attr.aria-labelledby]="'arcana-modal-title-' + data.context">
+  <h2 id="arcana-modal-title-{{ data.context }}" class="modal-title">
+    {{ 'ARCANA_MODAL.TITLE' | translate }} — {{ data.arcana.join('-') }}
+  </h2>
+
+  <div class="arcana-section">
+    @if (data.context === 'karma' && karmaMeta && data.description) {
+      <div class="arcane-header">
+        <span class="arcane-path">{{ data.arcana.join('-') }}</span>
+        <span class="polarity-badge" [class.positive]="karmaMeta.isPositive" [class.negative]="!karmaMeta.isPositive">
+          {{ karmaMeta.isPositive ? ('ARCANA_MODAL.POSITIVE' | translate) : ('ARCANA_MODAL.NEGATIVE' | translate) }}
+        </span>
+      </div>
+    }
+    @if (data.context === 'year' && yearMeta) {
+      <div class="context-info">{{ 'ARCANA_MODAL.YEAR' | translate }}: {{ yearMeta.year }}</div>
+    }
+    @if (data.context === 'month' && monthMeta) {
+      <div class="context-info">{{ 'ARCANA_MODAL.MONTH' | translate }}: {{ monthMeta.month }} / {{ 'ARCANA_MODAL.YEAR_ARCANA' | translate }}: {{ monthMeta.yearArcana }}</div>
+    }
+    @if (data.context === 'calendar' && calendarMeta) {
+      <div class="context-info context-info--calendar">
+        <span>{{ 'ARCANA_MODAL.DATE' | translate }}: {{ calendarMeta.day }}/{{ calendarMeta.month }}/{{ calendarMeta.year }}</span>
+        <span>{{ 'ARCANA_MODAL.DAY_ARCANA' | translate }}: {{ calendarMeta.dayArcana }}, {{ 'ARCANA_MODAL.MONTH_ARCANA' | translate }}: {{ calendarMeta.monthArcana }}, {{ 'ARCANA_MODAL.YEAR_ARCANA' | translate }}: {{ calendarMeta.yearArcana }}</span>
+      </div>
+    }
+    @if (data.contextMeta) {
+      <div class="arcana-card">
+        <p class="arcane-description">
+          @if (descriptionKey(); as key) {
+            {{ key | translate }}
+          } @else {
+            {{ 'ARCANA_MODAL.NO_DESCRIPTION' | translate }}
+          }
+        </p>
+        @if (data.hasNegativeKarma && data.context !== 'karma') {
+          <div class="karmic-status-section" role="alert">
+            <h4>{{ 'ARCANA_MODAL.KARMIC_STATUS' | translate }}</h4>
+            @if (data.description?.negativeKarmaExtraDescription; as extraDesc) {
+              <p class="karmic-debt-notice">{{ extraDesc | translate }}</p>
+            } @else {
+              <p>{{ 'ARCANA_MODAL.KARMIC_STATUS_MATCH' | translate }}</p>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="modal-actions">
+    <button mat-button (click)="close()">{{ 'ARCANA_MODAL.CLOSE' | translate }}</button>
+  </div>
+</div>

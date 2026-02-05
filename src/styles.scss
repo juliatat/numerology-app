@@ -323,4 +323,26 @@ main .mat-datepicker-toggle {
   .mat-mdc-form-field .mdc-line-ripple::after {
     border-bottom-color: var(--border-color) !important;
   }
+
+  .arcana-dialog .mat-mdc-dialog-container,
+  .arcana-dialog .mat-dialog-container,
+  .mat-mdc-dialog-container,
+  .mat-dialog-container {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+  }
+
+
+  .arcana-dialog .mat-mdc-dialog-surface,
+  .arcana-dialog .mdc-dialog__surface,
+  .mat-mdc-dialog-surface,
+  .mat-dialog-content {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+  }
+
+  .arcana-dialog .mat-mdc-button:not([disabled]),
+  .mat-mdc-button:not([disabled]) {
+    color: var(--table-header-bg) !important;
+  }
 }

@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {DynamicTableComponent, TableColumn} from '../../../../shared/table/dynamic-table/dynamic-table';
 import {KarmaCalculationService} from '../../services/karma-calculation.service';
+import {ArcanaModalService} from '../../services/arcana-modal.service';
 
 @Component({
   selector: 'app-karma-block',
@@ -13,11 +14,13 @@ import {KarmaCalculationService} from '../../services/karma-calculation.service'
 })
 export class KarmaBlockComponent {
   readonly birthDate = input<Date | null>(null);
+  readonly negativeArcana = input<number[]>([]);
   private readonly karmaService = inject(KarmaCalculationService);
+  private readonly arcanaModal = inject(ArcanaModalService);
 
   readonly tableColumns: TableColumn[] = [
-    { key: 'positive', label: '+' },
-    { key: 'negative', label: '-' },
+    { key: 'positive', label: 'KARMA.POSITIVE_LABEL' },
+    { key: 'negative', label: 'KARMA.NEGATIVE_LABEL' },
   ];
 
   readonly karmaTableData = computed((): Array<{ id: string; negative: number; positive: number }> => {
@@ -36,4 +39,14 @@ export class KarmaBlockComponent {
     }));
   });
 
+  onCellClick(event: {row: {id: string; negative: number; positive: number}; columnKey: string; value: unknown}): void {
+    const arcane = Number(event.value);
+    if (!Number.isInteger(arcane) || arcane < 1 || arcane > 22) return;
+    this.arcanaModal.openForPath(
+      [arcane],
+      this.negativeArcana(),
+      'karma',
+      {isPositive: event.columnKey === 'positive'}
+    );
+  }
 }
