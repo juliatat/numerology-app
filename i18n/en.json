@@ -1,6 +1,10 @@
 {
+  "HEADER": {
+    "TITLE": "I'm Your Numerologist"
+  },
   "FOOTER": {
     "THEME": "Toggle Theme",
+    "CHANGE_LANGUAGE": "Change language",
     "LANGUAGE": {
       "EN": "en",
       "RU": "ru"
@@ -12,6 +16,7 @@
     "NAME_PLACEHOLDER": "Enter your full name",
     "NAME_REQUIRED": "Name is required",
     "BIRTHDATE": "Birth Date",
+    "BIRTHDATE_PLACEHOLDER": "DD/MM/YYYY",
     "BIRTHDATE_REQUIRED": "Birth Date is required",
     "CALCULATE": "Calculate",
     "LIFE_PATH": "Life Path Number",
@@ -98,13 +103,33 @@
     }
   },
   "KARMA_TITLE": "Karma",
+  "KARMA": {
+    "POSITIVE_LABEL": "+",
+    "NEGATIVE_LABEL": "-"
+  },
   "PROGNOSTICS": {
     "ARCANE": "Arcane",
     "SELECT_YEAR": "Select year",
     "SELECT_MONTH": "Select month",
     "CALENDAR_TITLE": "Daily Prognostics"
   },
-
+  "ARCANA_MODAL": {
+    "TITLE": "Arcana",
+    "POSITIVE": "Positive",
+    "NEGATIVE": "Negative",
+    "KARMIC_DEBT": "This arcana is associated with karmic debt.",
+    "KARMIC_DEBT_EXTRA": "Karmic debt aspect:",
+    "YEAR": "Year",
+    "MONTH": "Month",
+    "DATE": "Date",
+    "DAY_ARCANA": "Day arcana",
+    "MONTH_ARCANA": "Month arcana",
+    "YEAR_ARCANA": "Year arcana",
+    "CLOSE": "Close",
+    "NO_DESCRIPTION": "No description available for this path.",
+    "KARMIC_STATUS": "Karmic significance",
+    "KARMIC_STATUS_MATCH": "One or more of these arcana match your Karma block's negative calculations."
+  },
   "MONTHS": {
     "1": "January",
     "2": "February",
