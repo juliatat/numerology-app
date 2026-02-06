@@ -4,10 +4,11 @@ import {provideAnimations} from '@angular/platform-browser/animations';
 
 import {routes} from './app.routes';
 import {HttpClient, provideHttpClient} from '@angular/common/http';
-import {TRANSLATE_HTTP_LOADER_CONFIG, TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerIntl} from '@angular/material/datepicker';
+
+import {ArcanaTranslateLoader} from './core/i18n/arcana-translate-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,18 +18,11 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideNativeDateAdapter(),
     MatDatepickerIntl,
-    {
-      provide: TRANSLATE_HTTP_LOADER_CONFIG,
-      useValue: {
-        prefix: 'i18n/',
-        suffix: '.json',
-      },
-    },
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateHttpLoader,
+          useClass: ArcanaTranslateLoader,
           deps: [HttpClient],
         },
       })
