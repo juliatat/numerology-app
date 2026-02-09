@@ -12,6 +12,8 @@
   },
   "NUMEROLOGY": {
     "TITLE": "Numerology Calculator",
+    "TAB_GENERAL": "General information",
+    "TAB_HINT_CALCULATE": "Enter your name and birth date in the General information tab, then click Calculate to see results.",
     "NAME": "Full Name",
     "NAME_PLACEHOLDER": "Enter your full name",
     "NAME_REQUIRED": "Name is required",
@@ -108,6 +110,7 @@
     "NEGATIVE_LABEL": "-"
   },
   "PROGNOSTICS": {
+    "TAB_TITLE": "Prognostics",
     "ARCANE": "Arcane",
     "SELECT_YEAR": "Select year",
     "SELECT_MONTH": "Select month",

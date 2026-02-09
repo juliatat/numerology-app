@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {trigger, transition, style, animate} from '@angular/animations';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {NumerologyCalculateService} from '../services/numerology-calculation.service';
@@ -17,10 +18,19 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-numerology-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('tabsAppear', [
+      transition(':enter', [
+        style({opacity: 0, transform: 'translateY(-8px)'}),
+        animate('300ms ease-out', style({opacity: 1, transform: 'translateY(0)'})),
+      ]),
+    ]),
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -29,6 +39,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatDatepickerModule,
     MatButtonModule,
+    MatTabsModule,
     KarmaBlockComponent,
     YearlyPrognosticsComponent,
     MonthlyPrognosticsComponent,
@@ -55,6 +66,7 @@ export class NumerologyPageComponent {
   readonly nameNumber = signal<number | null>(null);
   readonly karmicDebts = signal<KarmicDebtResult[]>([]);
 
+  readonly selectedTabIndex = signal(0);
   readonly selectedYear = signal<number>(new Date().getFullYear());
   readonly selectedMonth = signal<number>(new Date().getMonth() + 1);
 

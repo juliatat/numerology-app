@@ -1,90 +1,120 @@
 <h2>{{ 'NUMEROLOGY.TITLE' | translate }}</h2>
 
-<div class="numerology-container" [class.has-results]="lifePathNumber() !== null">
-  <div class="form-wrapper">
-    <form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form" novalidate>
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>{{ 'NUMEROLOGY.NAME' | translate }}</mat-label>
-        <input matInput formControlName="name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER' | translate }}">
-
-        @if (form.controls.name.invalid && form.controls.name.touched) {
-          <mat-error>{{ 'NUMEROLOGY.NAME_REQUIRED' | translate }}</mat-error>
-        }
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>{{ 'NUMEROLOGY.BIRTHDATE' | translate }}</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="birthDate" [placeholder]="'NUMEROLOGY.BIRTHDATE_PLACEHOLDER' | translate">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker startView="multi-year"></mat-datepicker>
-        @if (form.controls.birthDate.invalid && form.controls.birthDate.touched) {
-          <mat-error>{{ 'NUMEROLOGY.BIRTHDATE_REQUIRED' | translate }}</mat-error>
-        }
-      </mat-form-field>
-
-      <div class="form-actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
-          {{ 'NUMEROLOGY.CALCULATE' | translate }}
-        </button>
-      </div>
-    </form>
-  </div>
-
-  <div class="numerology-calculation">
-    @if (lifePathNumber(); as lp) {
-      <div class="result-card">
-        <h3>{{ 'NUMEROLOGY.LIFE_PATH' | translate }}: {{ lp }}</h3>
-        <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lp | translate }}</p>
-      </div>
-
-      <div class="result-card">
-        <h3>{{ 'NUMEROLOGY.LIFE_LESSON' | translate }}: {{ lp }}</h3>
-        <p>{{ 'NUMEROLOGY.LIFE_LESSON_DESCRIPTIONS.' + lp | translate }}</p>
-      </div>
-    }
-
-    @if (nameNumber(); as nn) {
-      <div class="result-card">
-        <h3>{{ 'NUMEROLOGY.NAME_NUMBER' | translate }}: {{ nn }}</h3>
-        <p>{{ 'NUMEROLOGY.NAME_NUMBER_DESCRIPTIONS.' + nn | translate }}</p>
-      </div>
-    }
-
-    @if (karmicDebts().length > 0) {
-      <div class="result-card">
-        <h3>{{ 'NUMEROLOGY.KARMIC_DEBTS' | translate }}</h3>
-        <p>
-          @for (debt of karmicDebts(); track $index) {
-            <span>{{ debt.value }} - {{ 'NUMEROLOGY.KARMIC_DEBTS_DESCRIPTION.' + debt.value | translate }} </span>
-          }
-        </p>
-      </div>
-    }
-  </div>
-</div>
-@if (birthDate() && isSubmitted()) {
-  <app-karma-block [birthDate]="birthDate()!" [negativeArcana]="negativeArcana()"></app-karma-block>
-  <div class="prognostics-container">
-    <app-yearly-prognostics
-      [birthDate]="birthDate()!"
-      [negativeArcana]="negativeArcana()"
-      (yearChange)="selectedYear.set($event)">
-    </app-yearly-prognostics>
-    @if (selectedYear()) {
-      <app-monthly-prognostics
-        [birthDate]="birthDate()!"
-        [selectedYear]="selectedYear()"
-        [negativeArcana]="negativeArcana()"
-        (monthlyChange)="selectedMonth.set($event)">
-      </app-monthly-prognostics>
-      @if (selectedMonth()) {
-        <app-calendar-prognostics
-          [birthDate]="birthDate()!"
-          [year]="selectedYear()"
-          [month]="selectedMonth()"
-          [negativeArcana]="negativeArcana()">
-        </app-calendar-prognostics>
+<section class="form-section">
+  <form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form" novalidate>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'NUMEROLOGY.NAME' | translate }}</mat-label>
+      <input matInput formControlName="name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER' | translate }}">
+      @if (form.controls.name.invalid && form.controls.name.touched) {
+        <mat-error>{{ 'NUMEROLOGY.NAME_REQUIRED' | translate }}</mat-error>
       }
-    }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'NUMEROLOGY.BIRTHDATE' | translate }}</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthDate" [placeholder]="'NUMEROLOGY.BIRTHDATE_PLACEHOLDER' | translate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+      @if (form.controls.birthDate.invalid && form.controls.birthDate.touched) {
+        <mat-error>{{ 'NUMEROLOGY.BIRTHDATE_REQUIRED' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        {{ 'NUMEROLOGY.CALCULATE' | translate }}
+      </button>
+    </div>
+  </form>
+</section>
+
+@if (isSubmitted()) {
+  <div class="tabs-wrapper" [@tabsAppear]>
+    <mat-tab-group
+      class="page-tabs"
+      [animationDuration]="200"
+      [selectedIndex]="selectedTabIndex()"
+      (selectedIndexChange)="selectedTabIndex.set($event)">
+      <mat-tab>
+        <ng-template mat-tab-label>{{ 'NUMEROLOGY.TAB_GENERAL' | translate }}</ng-template>
+        <ng-template matTabContent>
+          <div class="tab-content">
+            <div class="numerology-container" [class.has-results]="lifePathNumber() !== null">
+              <div class="numerology-calculation">
+                @if (lifePathNumber(); as lp) {
+                  <div class="result-card">
+                    <h3>{{ 'NUMEROLOGY.LIFE_PATH' | translate }}: {{ lp }}</h3>
+                    <p>{{ 'NUMEROLOGY.LIFE_PATH_DESCRIPTIONS.' + lp | translate }}</p>
+                  </div>
+
+                  <div class="result-card">
+                    <h3>{{ 'NUMEROLOGY.LIFE_LESSON' | translate }}: {{ lp }}</h3>
+                    <p>{{ 'NUMEROLOGY.LIFE_LESSON_DESCRIPTIONS.' + lp | translate }}</p>
+                  </div>
+                }
+
+                @if (nameNumber(); as nn) {
+                  <div class="result-card">
+                    <h3>{{ 'NUMEROLOGY.NAME_NUMBER' | translate }}: {{ nn }}</h3>
+                    <p>{{ 'NUMEROLOGY.NAME_NUMBER_DESCRIPTIONS.' + nn | translate }}</p>
+                  </div>
+                }
+
+                @if (karmicDebts().length > 0) {
+                  <div class="result-card">
+                    <h3>{{ 'NUMEROLOGY.KARMIC_DEBTS' | translate }}</h3>
+                    <p>
+                      @for (debt of karmicDebts(); track $index) {
+                        <span>{{ debt.value }} - {{ 'NUMEROLOGY.KARMIC_DEBTS_DESCRIPTION.' + debt.value | translate }} </span>
+                      }
+                    </p>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>{{ 'KARMA_TITLE' | translate }}</ng-template>
+        <ng-template matTabContent>
+          <div class="tab-content">
+            <app-karma-block [birthDate]="birthDate()!" [negativeArcana]="negativeArcana()"></app-karma-block>
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>{{ 'PROGNOSTICS.TAB_TITLE' | translate }}</ng-template>
+        <ng-template matTabContent>
+          <div class="tab-content">
+            <div class="prognostics-container">
+              <app-yearly-prognostics
+                [birthDate]="birthDate()!"
+                [negativeArcana]="negativeArcana()"
+                (yearChange)="selectedYear.set($event)">
+              </app-yearly-prognostics>
+              @if (selectedYear()) {
+                <app-monthly-prognostics
+                  [birthDate]="birthDate()!"
+                  [selectedYear]="selectedYear()"
+                  [negativeArcana]="negativeArcana()"
+                  (monthlyChange)="selectedMonth.set($event)">
+                </app-monthly-prognostics>
+                @if (selectedMonth()) {
+                  <app-calendar-prognostics
+                    [birthDate]="birthDate()!"
+                    [year]="selectedYear()"
+                    [month]="selectedMonth()"
+                    [negativeArcana]="negativeArcana()">
+                  </app-calendar-prognostics>
+                }
+              }
+            </div>
+          </div>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 }
