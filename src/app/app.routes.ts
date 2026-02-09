@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'numerology', pathMatch: 'full' },
   {
-    path: 'numerology',
+    path: '',
     loadComponent: () =>
       import('./feature/numerology/components/numerology-page.component').then(
         (c) => c.NumerologyPageComponent
       ),
   },
-  ];
+  { path: 'numerology', redirectTo: '', pathMatch: 'full' },
+];
 
