@@ -57,3 +57,15 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Design services around a single responsibility
 - Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
+
+## UI / UX Requirements
+
+- All components and pages MUST be fully responsive: layouts, fonts, buttons, forms, and tabs should display correctly on mobile, tablet, and desktop screens.
+- Dark theme support. MUST be implemented and fully tested: background, text, buttons, inputs, tables, cards, and interactive elements must be readable and visually harmonious in dark mode.
+- Any CSS, SCSS, or inline styles MUST respect both light and dark themes and maintain proper contrast ratios (WCAG AA).
+
+## Code Cleanup and Refactoring
+
+- After making changes, ALL **unused code** in the modified files MUST be removed, including imports, variables, functions, and CSS/SCSS rules.
+- The code MUST be **refactored** where appropriate to improve readability, maintainability, and performance, without changing existing functionality.
+- Keep changes localized to the modified files; do not refactor unrelated parts of the codebase.
