@@ -12,13 +12,21 @@
   },
   "NUMEROLOGY": {
     "TITLE": "Калькулятор нумерологии",
+    "TAB_GENERAL": "Общая информация",
+    "TAB_HINT_CALCULATE": "Введите имя и дату рождения во вкладке «Общая информация», затем нажмите «Рассчитать» для просмотра результатов.",
     "NAME": "Полное имя",
     "NAME_PLACEHOLDER": "Введите свое имя",
     "NAME_REQUIRED": "Имя обязательно для заполнения",
     "BIRTHDATE": "Дата рождения",
     "BIRTHDATE_PLACEHOLDER": "ДД/ММ/ГГГГ",
     "BIRTHDATE_REQUIRED": "Дата рождения обязательна для заполнения",
+    "BIRTHDATE_FUTURE": "Дата рождения не может быть в будущем.",
+    "BIRTHDATE_INVALID": "Введите корректную дату (ДД/ММ/ГГГГ).",
     "CALCULATE": "Рассчитать",
+    "LEADING_ARCANA": "Ведущие арканы",
+    "LEADING_ARCANA_SOURCE": "Источник",
+    "LEADING_ARCANA_LESSON": "Урок",
+    "LEADING_ARCANA_IMPLEMENTATION": "Реализация",
     "LIFE_PATH": "Число жизненного пути",
     "LIFE_PATH_DESCRIPTIONS": {
       "1": "Лидерство, инициатива, независимость. Умение создавать реальность через волю и действие.",
@@ -108,6 +116,7 @@
     "NEGATIVE_LABEL": "-"
   },
   "PROGNOSTICS": {
+    "TAB_TITLE": "Прогностика",
     "ARCANE": "Аркан",
     "SELECT_YEAR": "Выбери год",
     "SELECT_MONTH": "Выбери месяц",
