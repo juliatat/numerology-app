@@ -2,9 +2,15 @@ import {ChangeDetectionStrategy, Component, computed, inject, input} from '@angu
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {DynamicTableComponent, TableColumn} from '../../../../shared/table/dynamic-table/dynamic-table';
-import type {KarmaPeriodKey} from '../../models/arcana-modal.model';
+import type {KarmaContextMeta, KarmaPeriodKey} from '../../models/arcana-modal.model';
 import {KarmaCalculationService} from '../../services/karma-calculation.service';
 import {ArcanaModalService} from '../../services/arcana-modal.service';
+
+interface KarmaTableRow {
+  id: KarmaPeriodKey;
+  negative: number;
+  positive: number;
+}
 
 @Component({
   selector: 'app-karma-block',
@@ -25,35 +31,34 @@ export class KarmaBlockComponent {
     { key: 'negative', label: 'KARMA.NEGATIVE_LABEL' },
   ];
 
-  readonly karmaTableData = computed((): Array<{ id: string; negative: number; positive: number }> => {
+  readonly tableOrientation = 'vertical' as const;
+
+  readonly karmaTableData = computed((): KarmaTableRow[] => {
     const birthDate = this.birthDate();
     if (!birthDate) return [];
 
     const negative = this.karmaService.calculateNegative(birthDate);
     const positive = this.karmaService.calculatePositive(birthDate);
+    const keys: KarmaPeriodKey[] = ['k1', 'k2', 'k3', 'k4', 'k5'];
 
-    const keys: Array<keyof typeof negative> = ['k1', 'k2', 'k3', 'k4', 'k5'];
-
-    return keys.map(key => ({
-      id: key,
-      negative: negative[key],
-      positive: positive[key],
+    return keys.map(id => ({
+      id,
+      negative: negative[id],
+      positive: positive[id],
     }));
   });
 
-  onCellClick(event: {row: {id: string; negative: number; positive: number}; columnKey: string; value: unknown}): void {
+  onCellClick(event: {row: KarmaTableRow; columnKey: string; value: unknown}): void {
     const arcane = Number(event.value);
     if (!Number.isInteger(arcane) || arcane < 1 || arcane > 22) return;
     const bd = this.birthDate();
     const lp = this.lifePathNumber();
-    const periodKey = event.row.id as KarmaPeriodKey;
-    this.arcanaModal.openForPath(
-      [arcane],
-      this.negativeArcana(),
-      'karma',
-      bd !== null && lp !== null
-        ? {isPositive: event.columnKey === 'positive', periodKey, birthYear: bd.getFullYear(), lifePathNumber: lp}
-        : {isPositive: event.columnKey === 'positive', periodKey}
-    );
+    const periodKey = event.row.id;
+    const contextMeta: KarmaContextMeta = {
+      isPositive: event.columnKey === 'positive',
+      periodKey,
+      ...(bd !== null && lp !== null ? { birthYear: bd.getFullYear(), lifePathNumber: lp } : {}),
+    };
+    this.arcanaModal.openForPath([arcane], this.negativeArcana(), 'karma', contextMeta);
   }
 }

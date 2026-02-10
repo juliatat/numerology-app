@@ -1,13 +1,16 @@
 <div class="arcana-modal" role="dialog" [attr.aria-labelledby]="'arcana-modal-title-' + data.context">
   <h2 id="arcana-modal-title-{{ data.context }}" class="modal-title">
-    {{ 'ARCANA_MODAL.TITLE' | translate }} — {{ data.arcana.join('-') }}
+    {{ 'ARCANA_MODAL.TITLE' | translate }} — {{ arcanaPath() }}
   </h2>
 
   <div class="arcana-section">
     @if (data.context === 'karma' && karmaMeta && data.description) {
       <div class="arcane-header">
-        <span class="arcane-path">{{ data.arcana.join('-') }}</span>
-        <span class="polarity-badge" [class.positive]="karmaMeta.isPositive" [class.negative]="!karmaMeta.isPositive">
+        <span class="arcane-path">{{ arcanaPath() }}</span>
+        <span
+          class="polarity-badge"
+          [class.positive]="karmaMeta.isPositive"
+          [class.negative]="!karmaMeta.isPositive">
           {{ karmaMeta.isPositive ? ('ARCANA_MODAL.POSITIVE' | translate) : ('ARCANA_MODAL.NEGATIVE' | translate) }}
         </span>
       </div>
@@ -50,7 +53,7 @@
       <p class="karma-period-line">
         <span class="karma-period-label">{{ 'KARMA_PERIODS.PERIOD' | translate }}:</span>
         @if (line.isK4) {
-          {{ line.years }} – {{ 'KARMA_PERIODS.END_OF_LIFE' | translate }}
+          {{ line.years }} - {{ 'KARMA_PERIODS.END_OF_LIFE' | translate }}
         } @else {
           {{ line.years }}
         }

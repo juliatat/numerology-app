@@ -25,6 +25,7 @@ export class ArcanaModalComponent {
   readonly dialogRef = inject(MatDialogRef<ArcanaModalComponent>);
   private readonly karmaPeriodsService = inject(KarmaPeriodsService);
 
+  readonly arcanaPath = computed(() => this.data.arcana.join('-'));
   readonly karmaMeta = this.data.contextMeta as KarmaContextMeta | undefined;
   readonly yearMeta = this.data.contextMeta as YearContextMeta | undefined;
   readonly monthMeta = this.data.contextMeta as MonthContextMeta | undefined;
