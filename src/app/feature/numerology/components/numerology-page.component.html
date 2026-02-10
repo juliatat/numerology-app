@@ -12,11 +12,24 @@
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>{{ 'NUMEROLOGY.BIRTHDATE' | translate }}</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="birthDate" [placeholder]="'NUMEROLOGY.BIRTHDATE_PLACEHOLDER' | translate">
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="birthDate"
+        [placeholder]="'NUMEROLOGY.BIRTHDATE_PLACEHOLDER' | translate"
+        [max]="maxBirthDate"
+        inputmode="numeric"
+        autocomplete="bday">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker startView="multi-year"></mat-datepicker>
       @if (form.controls.birthDate.invalid && form.controls.birthDate.touched) {
-        <mat-error>{{ 'NUMEROLOGY.BIRTHDATE_REQUIRED' | translate }}</mat-error>
+        @if (form.controls.birthDate.hasError('required')) {
+          <mat-error>{{ 'NUMEROLOGY.BIRTHDATE_REQUIRED' | translate }}</mat-error>
+        } @else if (form.controls.birthDate.hasError('futureDate')) {
+          <mat-error>{{ 'NUMEROLOGY.BIRTHDATE_FUTURE' | translate }}</mat-error>
+        } @else if (form.controls.birthDate.hasError('invalidDate')) {
+          <mat-error>{{ 'NUMEROLOGY.BIRTHDATE_INVALID' | translate }}</mat-error>
+        }
       }
     </mat-form-field>
 

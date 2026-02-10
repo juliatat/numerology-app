@@ -20,6 +20,8 @@
     "BIRTHDATE": "Birth Date",
     "BIRTHDATE_PLACEHOLDER": "DD/MM/YYYY",
     "BIRTHDATE_REQUIRED": "Birth Date is required",
+    "BIRTHDATE_FUTURE": "Birth date cannot be in the future.",
+    "BIRTHDATE_INVALID": "Please enter a valid date (DD/MM/YYYY).",
     "CALCULATE": "Calculate",
     "LEADING_ARCANA": "Leading arcana",
     "LEADING_ARCANA_SOURCE": "Source",

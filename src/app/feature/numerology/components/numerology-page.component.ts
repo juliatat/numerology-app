@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger, transition, style, animate} from '@angular/animations';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, ReactiveFormsModule, FormGroup, FormControl, Validators, ValidationErrors} from '@angular/forms';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {NumerologyCalculateService} from '../services/numerology-calculation.service';
 import {TranslateModule} from '@ngx-translate/core';
@@ -19,6 +19,17 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
+
+function birthDateValidator(control: AbstractControl<Date | null>): ValidationErrors | null {
+  const v = control.value;
+  if (v === null || v === undefined) return null;
+  if (!(v instanceof Date)) return {invalidDate: true};
+  if (Number.isNaN(v.getTime())) return {invalidDate: true};
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+  if (v.getTime() > today.getTime()) return {futureDate: true};
+  return null;
+}
 
 @Component({
   selector: 'app-numerology-page',
@@ -48,12 +59,15 @@ import {MatTabsModule} from '@angular/material/tabs';
   templateUrl: './numerology-page.component.html',
   styleUrl: './numerology-page.component.scss',
 })
-
 export class NumerologyPageComponent {
   readonly form = new FormGroup({
     name: new FormControl<string>('', {nonNullable: true, validators: [Validators.required]}),
-    birthDate: new FormControl<Date | null>(null, Validators.required),
+    birthDate: new FormControl<Date | null>(null, [Validators.required, birthDateValidator]),
   });
+
+  get maxBirthDate(): Date {
+    return new Date();
+  }
 
   private readonly birthDateValue = toSignal(this.form.controls.birthDate.valueChanges, {
     initialValue: this.form.controls.birthDate.value,
