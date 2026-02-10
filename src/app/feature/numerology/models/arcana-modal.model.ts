@@ -1,7 +1,13 @@
 export type ArcanaModalContext = 'karma' | 'year' | 'month' | 'calendar';
 
+export type KarmaPeriodKey = 'k1' | 'k2' | 'k3' | 'k4' | 'k5';
+
 export interface KarmaContextMeta {
   isPositive: boolean;
+  /** Which row was clicked: k1..k5. Used to show only that period's years. */
+  periodKey?: KarmaPeriodKey;
+  birthYear?: number;
+  lifePathNumber?: number;
 }
 
 export interface YearContextMeta {

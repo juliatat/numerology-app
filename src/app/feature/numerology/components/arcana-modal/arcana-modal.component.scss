@@ -130,6 +130,17 @@
   color: #e65100;
 }
 
+.karma-period-line {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.karma-period-label {
+  font-weight: 600;
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;

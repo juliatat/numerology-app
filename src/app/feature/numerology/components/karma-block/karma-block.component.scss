@@ -13,9 +13,18 @@
     padding: 1rem;
     margin: 1.25rem 0;
   }
+}
+
+.karma-block-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
 
   h3 {
-    margin: 0 0 0.75rem;
+    margin: 0;
     font-size: clamp(0.9375rem, 3vw, 1.125rem);
     line-height: 1.3;
     word-wrap: break-word;

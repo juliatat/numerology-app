@@ -45,6 +45,17 @@
         }
       </div>
     }
+
+    @if (data.context === 'karma' && karmaPeriodLine(); as line) {
+      <p class="karma-period-line">
+        <span class="karma-period-label">{{ 'KARMA_PERIODS.PERIOD' | translate }}:</span>
+        @if (line.isK4) {
+          {{ line.years }} – {{ 'KARMA_PERIODS.END_OF_LIFE' | translate }}
+        } @else {
+          {{ line.years }}
+        }
+      </p>
+    }
   </div>
 
   <div class="modal-actions">

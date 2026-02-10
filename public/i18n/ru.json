@@ -115,6 +115,17 @@
     "POSITIVE_LABEL": "+",
     "NEGATIVE_LABEL": "-"
   },
+  "KARMA_PERIODS": {
+    "TITLE": "Карма периодов",
+    "PERIOD": "Период",
+    "BUTTON": "Карма периодов",
+    "K1": "K1",
+    "K2": "K2",
+    "K3": "K3",
+    "K4": "K4",
+    "END_OF_LIFE": "до конца жизни",
+    "CLOSE": "Закрыть"
+  },
   "PROGNOSTICS": {
     "TAB_TITLE": "Прогностика",
     "ARCANE": "Аркан",

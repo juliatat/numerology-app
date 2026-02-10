@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, computed, inject, input} from '@angu
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {DynamicTableComponent, TableColumn} from '../../../../shared/table/dynamic-table/dynamic-table';
+import type {KarmaPeriodKey} from '../../models/arcana-modal.model';
 import {KarmaCalculationService} from '../../services/karma-calculation.service';
 import {ArcanaModalService} from '../../services/arcana-modal.service';
 
@@ -14,6 +15,7 @@ import {ArcanaModalService} from '../../services/arcana-modal.service';
 })
 export class KarmaBlockComponent {
   readonly birthDate = input<Date | null>(null);
+  readonly lifePathNumber = input<number | null>(null);
   readonly negativeArcana = input<number[]>([]);
   private readonly karmaService = inject(KarmaCalculationService);
   private readonly arcanaModal = inject(ArcanaModalService);
@@ -42,11 +44,16 @@ export class KarmaBlockComponent {
   onCellClick(event: {row: {id: string; negative: number; positive: number}; columnKey: string; value: unknown}): void {
     const arcane = Number(event.value);
     if (!Number.isInteger(arcane) || arcane < 1 || arcane > 22) return;
+    const bd = this.birthDate();
+    const lp = this.lifePathNumber();
+    const periodKey = event.row.id as KarmaPeriodKey;
     this.arcanaModal.openForPath(
       [arcane],
       this.negativeArcana(),
       'karma',
-      {isPositive: event.columnKey === 'positive'}
+      bd !== null && lp !== null
+        ? {isPositive: event.columnKey === 'positive', periodKey, birthYear: bd.getFullYear(), lifePathNumber: lp}
+        : {isPositive: event.columnKey === 'positive', periodKey}
     );
   }
 }

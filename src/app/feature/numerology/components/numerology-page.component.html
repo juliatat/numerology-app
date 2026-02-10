@@ -111,7 +111,10 @@
         <ng-template mat-tab-label>{{ 'KARMA_TITLE' | translate }}</ng-template>
         <ng-template matTabContent>
           <div class="tab-content">
-            <app-karma-block [birthDate]="birthDate()!" [negativeArcana]="negativeArcana()"></app-karma-block>
+            <app-karma-block
+              [birthDate]="birthDate()!"
+              [lifePathNumber]="lifePathNumber()"
+              [negativeArcana]="negativeArcana()"></app-karma-block>
           </div>
         </ng-template>
       </mat-tab>
