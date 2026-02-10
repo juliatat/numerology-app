@@ -63,6 +63,7 @@ export class NumerologyPageComponent {
 
   readonly isSubmitted = signal(false);
   readonly lifePathNumber = signal<LifePathNumber | null>(null);
+  readonly leadingArcana = signal<[number, number, number] | null>(null);
   readonly nameNumber = signal<number | null>(null);
   readonly karmicDebts = signal<KarmicDebtResult[]>([]);
 
@@ -99,6 +100,7 @@ export class NumerologyPageComponent {
     );
 
     this.lifePathNumber.set(lifePathNumber);
+    this.leadingArcana.set(this.numerologyService.getLeadingArcana(birthDate));
     this.nameNumber.set(nameNumber);
     this.karmicDebts.set(karmicDebts);
   }

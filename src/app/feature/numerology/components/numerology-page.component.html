@@ -41,6 +41,24 @@
           <div class="tab-content">
             <div class="numerology-container" [class.has-results]="lifePathNumber() !== null">
               <div class="numerology-calculation">
+                @if (leadingArcana(); as arcana) {
+                  <div class="leading-arcana" role="group" [attr.aria-label]="'NUMEROLOGY.LEADING_ARCANA' | translate">
+                    <div class="leading-arcana-item">
+                      <span class="leading-arcana-number">{{ arcana[0] }}</span>
+                      <span class="leading-arcana-label">{{ 'NUMEROLOGY.LEADING_ARCANA_SOURCE' | translate }}</span>
+                    </div>
+                    <span class="leading-arcana-sep" aria-hidden="true">–</span>
+                    <div class="leading-arcana-item">
+                      <span class="leading-arcana-number">{{ arcana[1] }}</span>
+                      <span class="leading-arcana-label">{{ 'NUMEROLOGY.LEADING_ARCANA_LESSON' | translate }}</span>
+                    </div>
+                    <span class="leading-arcana-sep" aria-hidden="true">–</span>
+                    <div class="leading-arcana-item">
+                      <span class="leading-arcana-number">{{ arcana[2] }}</span>
+                      <span class="leading-arcana-label">{{ 'NUMEROLOGY.LEADING_ARCANA_IMPLEMENTATION' | translate }}</span>
+                    </div>
+                  </div>
+                }
                 @if (lifePathNumber(); as lp) {
                   <div class="result-card">
                     <h3>{{ 'NUMEROLOGY.LIFE_PATH' | translate }}: {{ lp }}</h3>

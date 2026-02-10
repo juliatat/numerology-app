@@ -21,6 +21,10 @@
     "BIRTHDATE_PLACEHOLDER": "DD/MM/YYYY",
     "BIRTHDATE_REQUIRED": "Birth Date is required",
     "CALCULATE": "Calculate",
+    "LEADING_ARCANA": "Leading arcana",
+    "LEADING_ARCANA_SOURCE": "Source",
+    "LEADING_ARCANA_LESSON": "Lesson",
+    "LEADING_ARCANA_IMPLEMENTATION": "Implementation",
     "LIFE_PATH": "Life Path Number",
     "LIFE_PATH_DESCRIPTIONS": {
       "1": "Leadership, initiative, independence. A person who creates reality through will and action.",
