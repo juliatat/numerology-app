@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, computed, inject, input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
-import {DynamicTableComponent, TableColumn} from '../../../../shared/table/dynamic-table/dynamic-table';
+import {DynamicTableComponent, TableColumn, TableRowBase} from '../../../../shared/table/dynamic-table/dynamic-table';
 import type {KarmaContextMeta, KarmaPeriodKey} from '../../models/arcana-modal.model';
 import {KarmaCalculationService} from '../../services/karma-calculation.service';
 import {ArcanaModalService} from '../../services/arcana-modal.service';
 
-interface KarmaTableRow {
+interface KarmaTableRow extends TableRowBase, Record<string, unknown> {
   id: KarmaPeriodKey;
   negative: number;
   positive: number;
@@ -48,12 +48,12 @@ export class KarmaBlockComponent {
     }));
   });
 
-  onCellClick(event: {row: KarmaTableRow; columnKey: string; value: unknown}): void {
+  onCellClick(event: {row: TableRowBase & Record<string, unknown>; columnKey: string; value: unknown}): void {
     const arcane = Number(event.value);
     if (!Number.isInteger(arcane) || arcane < 1 || arcane > 22) return;
     const bd = this.birthDate();
     const lp = this.lifePathNumber();
-    const periodKey = event.row.id;
+    const periodKey = (event.row as KarmaTableRow).id;
     const contextMeta: KarmaContextMeta = {
       isPositive: event.columnKey === 'positive',
       periodKey,

@@ -95,7 +95,7 @@
                   <div class="result-card">
                     <h3>{{ 'NUMEROLOGY.KARMIC_DEBTS' | translate }}</h3>
                     <p>
-                      @for (debt of karmicDebts(); track $index) {
+                      @for (debt of karmicDebts(); track debt.value) {
                         <span>{{ debt.value }} - {{ 'NUMEROLOGY.KARMIC_DEBTS_DESCRIPTION.' + debt.value | translate }} </span>
                       }
                     </p>
