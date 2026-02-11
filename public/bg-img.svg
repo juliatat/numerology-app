@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gray gradient -->
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f5f5f4"/>
+    </linearGradient>
+
+    <style>
+      .circle {
+        fill: none;
+        stroke: #6b6b6b;
+        stroke-width: 1.2;
+        opacity: 0.08;
+      }
+      .number {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 200;
+        fill: #6b6b6b;
+        opacity: 0.04;
+      }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="900" fill="url(#bgGradient)" />
+
+  <!-- Soft geometric circles -->
+  <circle class="circle" cx="720" cy="450" r="300"/>
+  <circle class="circle" cx="720" cy="450" r="180"/>
+  <circle class="circle" cx="720" cy="450" r="60"/>
+  <circle class="circle" cx="300" cy="200" r="120"/>
+  <circle class="circle" cx="1100" cy="700" r="160"/>
+
+  <!-- Floating numbers -->
+  <text class="number" x="150" y="250" font-size="180">3</text>
+  <text class="number" x="1200" y="200" font-size="220">7</text>
+  <text class="number" x="500" y="750" font-size="160">9</text>
+  <text class="number" x="1000" y="600" font-size="140">1</text>
+  <text class="number" x="250" y="700" font-size="200">6</text>
+</svg>
