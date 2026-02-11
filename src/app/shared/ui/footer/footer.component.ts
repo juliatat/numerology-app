@@ -19,7 +19,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatMenuModule
   ],
   template: `
-    <mat-toolbar class="app-footer" color="primary">
+    <mat-toolbar class="app-footer">
       <span class="footer-copy">© 2026 Numerology App</span>
 
       <span class="spacer"></span>

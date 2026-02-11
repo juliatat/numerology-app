@@ -1,14 +1,26 @@
 header {
   display: flex;
   align-items: center;
+  justify-content: center;
   color: var(--text-color);
 
   .logo-link {
     display: flex;
     align-items: center;
-    gap: 0.625rem;
+    gap: 0.75rem;
     text-decoration: none;
     color: inherit;
+    transition: opacity var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      opacity: 0.88;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
   }
 
   .logo-img {
@@ -25,9 +37,9 @@ header {
 
   .logo-title {
     margin: 0;
-    font-size: clamp(1rem, 3.5vw, 1.375rem);
-    font-weight: 500;
-    letter-spacing: 0.04em;
+    font-size: clamp(1rem, 3.5vw, 1.25rem);
+    font-weight: 600;
+    letter-spacing: 0.03em;
     line-height: 1.3;
   }
 }
