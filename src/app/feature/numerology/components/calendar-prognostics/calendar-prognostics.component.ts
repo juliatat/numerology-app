@@ -102,14 +102,16 @@ export class CalendarPrognosticsComponent {
     const monthArcana = this.arcaneNumberService.toArcane(
       birthDate.getDate() + month + this.arcaneNumberService.sumDigits(year)
     );
-    const years = this.yearlyPrognosticsService.calculateYears(birthDate, year);
-    const yearData = years.find(y => y.year === year);
-    const yearArcana = yearData?.positive ?? this.arcaneNumberService.toArcane(
-      this.arcaneNumberService.sumDigits(year)
-    );
+    const { calculated, active, isBeforeBirthday } =
+      this.yearlyPrognosticsService.getActiveYearArcan(
+        birthDate,
+        year,
+        month,
+        day.day
+      );
 
     this.arcanaModal.openForPath(
-      [day.arcane, monthArcana, yearArcana],
+      [active.positive, monthArcana, day.arcane],
       this.negativeArcana(),
       'calendar',
       {
@@ -118,7 +120,9 @@ export class CalendarPrognosticsComponent {
         year,
         dayArcana: day.arcane,
         monthArcana,
-        yearArcana,
+        calculatedYearArcana: calculated.positive,
+        yearArcana: active.positive,
+        isBeforeBirthday,
       }
     );
   }

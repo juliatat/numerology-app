@@ -59,17 +59,23 @@ export class MonthlyPrognosticsComponent {
     const birthDate = this.birthDate();
     const year = this.selectedYear();
     if (!birthDate || !year) return;
-    const years = this.yearlyPrognosticsService.calculateYears(birthDate, year);
-    const yearData = years.find(y => y.year === year);
-    const yearArcana = yearData?.positive ?? 0;
+    const { calculated, active, isBeforeBirthday } =
+      this.yearlyPrognosticsService.getActiveYearArcan(
+        birthDate,
+        year,
+        month.month,
+        1
+      );
     this.arcanaModal.openForPath(
-      [month.arcane, yearArcana],
+      [active.positive, month.arcane],
       this.negativeArcana(),
       'month',
       {
         month: month.month,
         monthArcana: month.arcane,
-        yearArcana,
+        calculatedYearArcana: calculated.positive,
+        yearArcana: active.positive,
+        isBeforeBirthday,
       }
     );
   }

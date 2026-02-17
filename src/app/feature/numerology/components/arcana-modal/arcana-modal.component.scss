@@ -38,11 +38,28 @@
   overflow-wrap: break-word;
   word-break: break-word;
 
+  &--year,
+  &--month {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
   &--calendar {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
   }
+}
+
+.context-note {
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  border-left: 3px solid var(--accent-border, var(--border-color));
+  padding-left: 0.75rem;
 }
 
 .arcana-card {

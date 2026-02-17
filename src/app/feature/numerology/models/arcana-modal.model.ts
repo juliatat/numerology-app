@@ -12,14 +12,23 @@ export interface KarmaContextMeta {
 
 export interface YearContextMeta {
   year: number;
+  /** Calculated year arcan (formula for this year). */
   positiveArcana: number;
   negativeArcana: number;
+  /** Lived/active year arcan (before birthday = previous year's energy). */
+  activePositiveArcana: number;
+  activeNegativeArcana: number;
+  isBeforeBirthday: boolean;
 }
 
 export interface MonthContextMeta {
   month: number;
   monthArcana: number;
+  /** Calculated year arcan for display. */
+  calculatedYearArcana: number;
+  /** Lived year arcan (used in path and for combinations). */
   yearArcana: number;
+  isBeforeBirthday: boolean;
 }
 
 export interface CalendarContextMeta {
@@ -28,7 +37,11 @@ export interface CalendarContextMeta {
   year: number;
   dayArcana: number;
   monthArcana: number;
+  /** Calculated year arcan for display. */
+  calculatedYearArcana: number;
+  /** Lived year arcan (used in path and for combinations). */
   yearArcana: number;
+  isBeforeBirthday: boolean;
 }
 
 /** Single description from a matched path in the tree. One per path, no aggregation. */

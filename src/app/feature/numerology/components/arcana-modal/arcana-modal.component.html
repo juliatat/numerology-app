@@ -16,15 +16,45 @@
       </div>
     }
     @if (data.context === 'year' && yearMeta) {
-      <div class="context-info">{{ 'ARCANA_MODAL.YEAR' | translate }}: {{ yearMeta.year }}</div>
+      <div class="context-info context-info--year">
+        <div>{{ 'ARCANA_MODAL.YEAR' | translate }}: {{ yearMeta.year }}</div>
+        <div>{{ 'ARCANA_MODAL.YEAR_ARCANA' | translate }}: {{ yearMeta.positiveArcana }} / {{ yearMeta.negativeArcana }}</div>
+        @if (yearMeta.isBeforeBirthday) {
+          <p class="context-note" role="note">
+            {{ 'ARCANA_MODAL.YEAR_PAY_ATTENTION_PREVIOUS' | translate }}
+          </p>
+        }
+      </div>
     }
     @if (data.context === 'month' && monthMeta) {
-      <div class="context-info">{{ 'ARCANA_MODAL.MONTH' | translate }}: {{ monthMeta.month }} / {{ 'ARCANA_MODAL.YEAR_ARCANA' | translate }}: {{ monthMeta.yearArcana }}</div>
+      <div class="context-info context-info--month">
+        <div>{{ 'ARCANA_MODAL.MONTH' | translate }}: {{ monthMeta.month }}</div>
+        <div>{{ 'ARCANA_MODAL.MONTH_ARCANA' | translate }}: {{ monthMeta.monthArcana }}</div>
+        @if (monthMeta.isBeforeBirthday) {
+          <div>{{ 'ARCANA_MODAL.YEAR_ARCANA_CALCULATED' | translate }}: {{ monthMeta.calculatedYearArcana }}</div>
+          <div>{{ 'ARCANA_MODAL.YEAR_ARCANA_ACTIVE' | translate }}: {{ monthMeta.yearArcana }}</div>
+          <p class="context-note" role="note">
+            {{ 'ARCANA_MODAL.YEAR_ARCANA_BEFORE_BIRTHDAY' | translate:{ calculated: monthMeta.calculatedYearArcana, active: monthMeta.yearArcana } }}
+          </p>
+        } @else {
+          <div>{{ 'ARCANA_MODAL.YEAR_ARCANA' | translate }}: {{ monthMeta.yearArcana }}</div>
+        }
+      </div>
     }
     @if (data.context === 'calendar' && calendarMeta) {
       <div class="context-info context-info--calendar">
-        <span>{{ 'ARCANA_MODAL.DATE' | translate }}: {{ calendarMeta.day }}/{{ calendarMeta.month }}/{{ calendarMeta.year }}</span>
-        <span>{{ 'ARCANA_MODAL.DAY_ARCANA' | translate }}: {{ calendarMeta.dayArcana }}, {{ 'ARCANA_MODAL.MONTH_ARCANA' | translate }}: {{ calendarMeta.monthArcana }}, {{ 'ARCANA_MODAL.YEAR_ARCANA' | translate }}: {{ calendarMeta.yearArcana }}</span>
+        <div>{{ 'ARCANA_MODAL.DATE' | translate }}: {{ calendarMeta.day }}/{{ calendarMeta.month }}/{{ calendarMeta.year }}</div>
+        <div>{{ 'ARCANA_MODAL.DAY_ARCANA' | translate }}: {{ calendarMeta.dayArcana }}</div>
+        <div>{{ 'ARCANA_MODAL.MONTH_ARCANA' | translate }}: {{ calendarMeta.monthArcana }}</div>
+        @if (calendarMeta.isBeforeBirthday) {
+          <div>{{ 'ARCANA_MODAL.YEAR_ARCANA_CALCULATED' | translate }}: {{ calendarMeta.calculatedYearArcana }}</div>
+          <div>{{ 'ARCANA_MODAL.YEAR_ARCANA_ACTIVE' | translate }}: {{ calendarMeta.yearArcana }}</div>
+          <p class="context-note" role="note">
+            {{ 'ARCANA_MODAL.YEAR_ARCANA_BEFORE_BIRTHDAY' | translate:{ calculated: calendarMeta.calculatedYearArcana, active: calendarMeta.yearArcana } }}
+          </p>
+        } @else {
+          <div>{{ 'ARCANA_MODAL.YEAR_ARCANA' | translate }}: {{ calendarMeta.yearArcana }}</div>
+        }
       </div>
     }
     @if (data.contextMeta) {

@@ -97,14 +97,27 @@ export class YearlyPrognosticsComponent {
   }
 
   onYearClick(item: YearArcane): void {
+    const birthDate = this.birthDate();
+    if (!birthDate) return;
+    const today = new Date();
+    const { calculated, active, isBeforeBirthday } =
+      this.yearlyPrognosticsService.getActiveYearArcan(
+        birthDate,
+        item.year,
+        today.getMonth() + 1,
+        today.getDate()
+      );
     this.arcanaModal.openForPath(
       [item.positive, item.negative],
       this.negativeArcana(),
       'year',
       {
         year: item.year,
-        positiveArcana: item.positive,
-        negativeArcana: item.negative,
+        positiveArcana: calculated.positive,
+        negativeArcana: calculated.negative,
+        activePositiveArcana: active.positive,
+        activeNegativeArcana: active.negative,
+        isBeforeBirthday,
       }
     );
   }
