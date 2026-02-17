@@ -39,12 +39,7 @@
   word-break: break-word;
 
   &--year,
-  &--month {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
+  &--month,
   &--calendar {
     display: flex;
     flex-direction: column;

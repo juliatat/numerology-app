@@ -14,12 +14,12 @@
       <mat-label>{{ 'NUMEROLOGY.BIRTHDATE' | translate }}</mat-label>
       <input
         matInput
+        appDateMask
         [matDatepicker]="picker"
         formControlName="birthDate"
         [placeholder]="'NUMEROLOGY.BIRTHDATE_PLACEHOLDER' | translate"
         [max]="maxBirthDate"
-        inputmode="numeric"
-        autocomplete="bday">
+        inputmode="numeric">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker startView="multi-year"></mat-datepicker>
       @if (form.controls.birthDate.invalid && form.controls.birthDate.touched) {

@@ -19,6 +19,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
+import {DateMaskDirective} from '../../../core/date-locale/date-mask.directive';
 
 function birthDateValidator(control: AbstractControl<Date | null>): ValidationErrors | null {
   const v = control.value;
@@ -51,6 +52,7 @@ function birthDateValidator(control: AbstractControl<Date | null>): ValidationEr
     MatDatepickerModule,
     MatButtonModule,
     MatTabsModule,
+    DateMaskDirective,
     KarmaBlockComponent,
     YearlyPrognosticsComponent,
     MonthlyPrognosticsComponent,
