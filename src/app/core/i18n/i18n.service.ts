@@ -9,15 +9,15 @@ export type AppLang = 'en' | 'ru';
 export class I18nService {
   private readonly translate = inject(TranslateService);
 
-  readonly lang = signal<AppLang>('en');
+  readonly lang = signal<AppLang>('ru');
 
   constructor() {
-    this.translate.setDefaultLang('en');
+    this.translate.setDefaultLang('ru');
 
     // Initialize from storage/browser once, then keep `TranslateService` in sync via an effect.
     const savedLang = localStorage.getItem(STORAGE_KEY);
     const browserLang = this.getBrowserLang();
-    const initialLang = this.isAppLang(savedLang) ? savedLang : (browserLang ?? 'en');
+    const initialLang = this.isAppLang(savedLang) ? savedLang : (browserLang ?? 'ru');
     this.lang.set(initialLang);
 
     effect(() => {
