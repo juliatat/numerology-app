@@ -44,8 +44,8 @@
 .calendar-container ::ng-deep .mat-mdc-grid-list,
 .calendar-container ::ng-deep .mat-grid-list,
 .calendar-container ::ng-deep [mat-grid-list] {
-  width: 105%;
-  max-width: 105%;
+  width: 100%;
+  min-width: 21rem; /* ~3rem на колонку при 7 колонках — текст помещается */
 }
 
 .calendar-container ::ng-deep .mat-grid-tile,
@@ -57,6 +57,7 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   min-width: 0;
+  overflow: hidden;
   color: var(--text-color);
   cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease-out);
@@ -71,6 +72,7 @@
     font-variant-numeric: tabular-nums;
     line-height: 1.2;
     flex-shrink: 0;
+    max-width: 100%;
   }
 
   .day-arcane {
@@ -81,6 +83,7 @@
     text-align: center;
     word-break: break-word;
     max-width: 100%;
+    min-width: 0;
   }
 }
 
@@ -93,4 +96,5 @@
   padding: 4px;
   width: 100%;
   min-width: 0;
+  overflow: hidden;
 }
