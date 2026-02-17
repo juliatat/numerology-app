@@ -7,6 +7,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {ArcaneNumberService} from '../../services/arcane-number.service';
 import {ArcanaModalService} from '../../services/arcana-modal.service';
+import {YearlyPrognosticsService} from '../../services/yearly-prognostics.service';
 
 export interface DayArcane {
   day: number;
@@ -32,6 +33,7 @@ export class CalendarPrognosticsComponent {
   private readonly arcaneNumberService = inject(ArcaneNumberService);
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly arcanaModal = inject(ArcanaModalService);
+  private readonly yearlyPrognosticsService = inject(YearlyPrognosticsService);
 
   constructor() {
     this.breakpointObserver
@@ -97,15 +99,17 @@ export class CalendarPrognosticsComponent {
     const month = this.month();
     if (!birthDate || !year || !month) return;
 
-    const targetYearArcane = this.arcaneNumberService.toArcane(
-      this.arcaneNumberService.sumDigits(year)
-    );
     const monthArcana = this.arcaneNumberService.toArcane(
       birthDate.getDate() + month + this.arcaneNumberService.sumDigits(year)
     );
+    const years = this.yearlyPrognosticsService.calculateYears(birthDate, year);
+    const yearData = years.find(y => y.year === year);
+    const yearArcana = yearData?.positive ?? this.arcaneNumberService.toArcane(
+      this.arcaneNumberService.sumDigits(year)
+    );
 
     this.arcanaModal.openForPath(
-      [day.arcane, monthArcana, targetYearArcane],
+      [day.arcane, monthArcana, yearArcana],
       this.negativeArcana(),
       'calendar',
       {
@@ -114,7 +118,7 @@ export class CalendarPrognosticsComponent {
         year,
         dayArcana: day.arcane,
         monthArcana,
-        yearArcana: targetYearArcane,
+        yearArcana,
       }
     );
   }
