@@ -26,7 +26,7 @@ export interface TableRowBase {
     TranslateModule
   ],
   templateUrl: './dynamic-table.html',
-  styleUrls: ['./dynamic-table.scss']
+  styleUrl: './dynamic-table.scss'
 })
 export class DynamicTableComponent<T extends TableRowBase & Record<string, unknown>> {
   readonly columns = input<TableColumn[]>([]);

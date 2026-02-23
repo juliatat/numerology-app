@@ -19,7 +19,7 @@ import {ArcanaModalService} from '../../services/arcana-modal.service';
     TranslateModule,
   ],
   templateUrl: './monthly-prognostics.component.html',
-  styleUrls: ['./monthly-prognostics.component.scss'],
+  styleUrl: './monthly-prognostics.component.scss',
 })
 export class MonthlyPrognosticsComponent {
   readonly birthDate = input<Date | null>(null);
@@ -44,8 +44,6 @@ export class MonthlyPrognosticsComponent {
       const birthDate = this.birthDate();
       const year = this.selectedYear();
       if (!birthDate || !year) return;
-
-      this.months();
       this.monthlyChange.emit(this.selectedMonth());
     });
   }

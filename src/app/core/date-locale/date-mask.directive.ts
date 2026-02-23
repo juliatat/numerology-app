@@ -1,12 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  HostListener,
-  inject,
-  NgZone,
-  OnInit,
-  Self,
-} from '@angular/core';
+import {Directive, ElementRef, inject, NgZone, OnInit, Self} from '@angular/core';
 import {NgControl} from '@angular/forms';
 
 const SLASH = '/';
@@ -53,6 +45,10 @@ function parseDdMmYyyy(value: string): Date | null {
   host: {
     '[attr.maxlength]': '10',
     '[attr.autocomplete]': '"off"',
+    '(input)': 'onInput($event)',
+    '(blur)': 'onBlur()',
+    '(keydown)': 'onKeydown($event)',
+    '(paste)': 'onPaste($event)',
   },
 })
 export class DateMaskDirective implements OnInit {
@@ -101,7 +97,6 @@ export class DateMaskDirective implements OnInit {
     }
   }
 
-  @HostListener('input', ['$event'])
   onInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     const cursor = input.selectionStart ?? 0;
@@ -123,7 +118,6 @@ export class DateMaskDirective implements OnInit {
     this.updateControl(formatted);
   }
 
-  @HostListener('blur')
   onBlur(): void {
     const raw = this.el.nativeElement.value;
     const digits = digitsOnly(raw).slice(0, 8);
@@ -131,15 +125,13 @@ export class DateMaskDirective implements OnInit {
     if (formatted.length === MASK_LEN) {
       this.el.nativeElement.value = formatted;
     }
-    const valueToApply = formatted;
     this.ngZone.runOutsideAngular(() => {
       setTimeout(() => {
-        this.ngZone.run(() => this.updateControl(valueToApply));
+        this.ngZone.run(() => this.updateControl(formatted));
       }, 0);
     });
   }
 
-  @HostListener('keydown', ['$event'])
   onKeydown(event: KeyboardEvent): void {
     const input = this.el.nativeElement;
     const key = event.key;
@@ -159,7 +151,6 @@ export class DateMaskDirective implements OnInit {
     }
   }
 
-  @HostListener('paste', ['$event'])
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
     const pasted = (event.clipboardData?.getData('text') ?? '').trim();

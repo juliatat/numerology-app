@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {trigger, transition, style, animate} from '@angular/animations';
 import {AbstractControl, ReactiveFormsModule, FormGroup, FormControl, Validators, ValidationErrors} from '@angular/forms';
 import {toSignal} from '@angular/core/rxjs-interop';
@@ -11,7 +10,7 @@ import {YearlyPrognosticsComponent} from './yearly-prognostics/yearly-prognostic
 import {MonthlyPrognosticsComponent} from './monthly-prognostics/monthly-prognostics.component';
 import {CalendarPrognosticsComponent} from './calendar-prognostics/calendar-prognostics.component';
 import {NameNumberService} from '../services/name-number.service';
-import {KarmicDebtResult} from '../../../core/models/karmic-debt-typrs';
+import {KarmicDebtResult} from '../../../core/models/karmic-debt-types';
 import {KarmicDebtService} from '../services/karmic-debt.service';
 import {KarmaCalculationService} from '../services/karma-calculation.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -44,7 +43,6 @@ function birthDateValidator(control: AbstractControl<Date | null>): ValidationEr
     ]),
   ],
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     TranslateModule,
     MatFormFieldModule,

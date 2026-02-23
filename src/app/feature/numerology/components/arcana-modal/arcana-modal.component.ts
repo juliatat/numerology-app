@@ -49,7 +49,7 @@ export class ArcanaModalComponent {
     return { years: periods[key], isK4: false };
   });
 
-  readonly descriptionKey = computed(() => {
+  readonly descriptionKey = computed<string | null>(() => {
     const desc = this.data.description;
     if (!desc) return null;
     if (this.data.context === 'karma' && this.karmaMeta) {

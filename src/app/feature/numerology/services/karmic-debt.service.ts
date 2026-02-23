@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {KarmicDebtResult} from '../../../core/models/karmic-debt-typrs';
+import {KarmicDebtResult} from '../../../core/models/karmic-debt-types';
 
 const KarmicDebt = [13, 14, 16, 19];
 

@@ -49,7 +49,7 @@ export const YEAR_FORMAT = {
     {provide: MAT_DATE_FORMATS, useValue: YEAR_FORMAT},
   ],
   templateUrl: './yearly-prognostics.component.html',
-  styleUrls: ['./yearly-prognostics.component.scss'],
+  styleUrl: './yearly-prognostics.component.scss',
 })
 export class YearlyPrognosticsComponent {
   readonly birthDate = input<Date | null>(null);

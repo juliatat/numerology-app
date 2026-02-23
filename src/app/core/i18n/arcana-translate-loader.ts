@@ -9,21 +9,6 @@ const ARCANA_FILES = Array.from({ length: 22 }, (_, i) =>
   `${String(i + 1).padStart(2, '0')}.json`
 );
 
-/**
- * Converts nested ArcanaData structure to flat keys for template access.
- * 
- * NEW structure: arcana-data.json with nested arcana/combinations/karmaTexts
- * OUTPUT: Flat keys like:
- * - ARCANA_TREE.1 → arcana["1"].meaning
- * - ARCANA_TREE.YEAR_1 → combinations["1"].yearText
- * - ARCANA_TREE.MONTH_1_5 → combinations["1"].months["5"].monthText
- * - ARCANA_TREE.1_5_14 → combinations["1"].months["5"].days["14"]
- * - ARCANA_TREE.1_KARMA_POS → arcana["1"].karmaPos
- * - ARCANA_TREE.1_KARMA_NEG → arcana["1"].karmaNeg
- * - ARCANA_TREE.YEAR_NEG_KARMA → karmaTexts.yearNegKarma
- * - ARCANA_TREE.MONTH_NEG_KARMA → karmaTexts.monthNegKarma
- * - ARCANA_TREE.CALENDAR_NEG_KARMA → karmaTexts.calendarNegKarma
- */
 function flattenArcanaData(data: ArcanaData): Record<string, string> {
   const flat: Record<string, string> = {};
 
@@ -67,9 +52,6 @@ function flattenArcanaData(data: ArcanaData): Record<string, string> {
   return flat;
 }
 
-/**
- * Merges 22 arcana files (01.json–22.json) into one ArcanaData.
- */
 function mergeArcanaFiles(parts: ArcanaData[]): ArcanaData {
   const merged: ArcanaData = {
     arcana: {},
@@ -88,10 +70,6 @@ function mergeArcanaFiles(parts: ArcanaData[]): ArcanaData {
   return merged;
 }
 
-/**
- * Custom TranslateLoader that merges main i18n translations with
- * arcana descriptions from arcana/{lang}/01.json through 22.json (nested structure per arcana).
- */
 export class ArcanaTranslateLoader implements TranslateLoader {
   constructor(private readonly http: HttpClient) {}
 

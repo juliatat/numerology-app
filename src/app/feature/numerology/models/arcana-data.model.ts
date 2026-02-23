@@ -1,5 +1,3 @@
-/** New nested structure for arcana data */
-
 export interface ArcanaData {
   arcana: Record<string, ArcanaMeaning>;
   combinations: Record<string, YearCombination>;
