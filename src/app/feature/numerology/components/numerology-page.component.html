@@ -1,10 +1,10 @@
 <h2>{{ 'NUMEROLOGY.TITLE' | translate }}</h2>
 
 <section class="form-section">
-  <form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form" novalidate>
+  <form [formGroup]="form" (ngSubmit)="calculate()" class="numerology-form" autocomplete="on" novalidate>
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>{{ 'NUMEROLOGY.NAME' | translate }}</mat-label>
-      <input matInput formControlName="name" autocomplete="given-name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER' | translate }}">
+      <input matInput formControlName="name" name="name" autocomplete="given-name" placeholder="{{ 'NUMEROLOGY.NAME_PLACEHOLDER' | translate }}">
       @if (form.controls.name.invalid && form.controls.name.touched) {
         <mat-error>{{ 'NUMEROLOGY.NAME_REQUIRED' | translate }}</mat-error>
       }
@@ -17,6 +17,7 @@
         appDateMask
         [matDatepicker]="picker"
         formControlName="birthDate"
+        name="birthDate"
         autocomplete="bday"
         [placeholder]="'NUMEROLOGY.BIRTHDATE_PLACEHOLDER' | translate"
         [max]="maxBirthDate"
