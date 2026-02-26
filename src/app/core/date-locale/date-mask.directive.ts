@@ -44,7 +44,6 @@ function parseDdMmYyyy(value: string): Date | null {
   selector: 'input[appDateMask]',
   host: {
     '[attr.maxlength]': '10',
-    '[attr.autocomplete]': '"off"',
     '(input)': 'onInput($event)',
     '(blur)': 'onBlur()',
     '(keydown)': 'onKeydown($event)',
